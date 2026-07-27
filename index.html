@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>Học tiếng Anh mỗi ngày</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-icon">📚</span>
+    <div>
+      <div class="brand-title">Học tiếng Anh mỗi ngày</div>
+      <div class="brand-sub" id="today-label">—</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="streak" id="streak-badge" title="Số ngày học liên tiếp">🔥 <span id="streak-count">0</span></div>
+    <button class="icon-btn" id="btn-theme" title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện">🌓</button>
+    <button class="icon-btn" id="btn-settings" title="Cài đặt" aria-label="Cài đặt">⚙️</button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab" data-view="ex1">
+    <span class="tab-num">Bài 1</span>
+    <span class="tab-name">Từ vựng</span>
+    <span class="tab-score" id="tab-score-1"></span>
+  </button>
+  <button class="tab" data-view="ex2">
+    <span class="tab-num">Bài 2</span>
+    <span class="tab-name">Nghe hiểu</span>
+    <span class="tab-score" id="tab-score-2"></span>
+  </button>
+  <button class="tab" data-view="ex3">
+    <span class="tab-num">Bài 3</span>
+    <span class="tab-name">Phát âm</span>
+    <span class="tab-score" id="tab-score-3"></span>
+  </button>
+  <button class="tab" data-view="summary">
+    <span class="tab-num">Tổng kết</span>
+    <span class="tab-name">Hôm nay</span>
+    <span class="tab-score"></span>
+  </button>
+</nav>
+
+<main id="main">
+  <section class="view" id="view-ex1" hidden></section>
+  <section class="view" id="view-ex2" hidden></section>
+  <section class="view" id="view-ex3" hidden></section>
+  <section class="view" id="view-summary" hidden></section>
+  <section class="view" id="view-loading">
+    <div class="card center">
+      <div class="spinner"></div>
+      <p>Đang tải bài học hôm nay…</p>
+    </div>
+  </section>
+</main>
+
+<!-- Cài đặt -->
+<dialog id="dlg-settings" class="dlg">
+  <form method="dialog" class="dlg-body">
+    <h2>Cài đặt</h2>
+
+    <fieldset>
+      <legend>Giọng đọc</legend>
+      <label class="row">
+        <span>Giọng</span>
+        <select id="set-voice"></select>
+      </label>
+      <label class="row">
+        <span>Tốc độ đọc: <b id="set-rate-val">0.9×</b></span>
+        <input type="range" id="set-rate" min="0.6" max="1.2" step="0.05" value="0.9">
+      </label>
+      <button type="button" class="btn ghost" id="btn-test-voice">🔊 Nghe thử</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Từ đã nhớ</legend>
+      <p class="muted small">Những từ này sẽ không xuất hiện lại trong Bài 1.</p>
+      <div id="known-words-list" class="chips"></div>
+      <button type="button" class="btn ghost danger" id="btn-clear-known">Bỏ đánh dấu tất cả</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tiến độ</legend>
+      <div class="btn-row">
+        <button type="button" class="btn ghost" id="btn-export">⬇️ Xuất tiến độ (JSON)</button>
+        <button type="button" class="btn ghost" id="btn-import">⬆️ Nhập tiến độ</button>
+        <input type="file" id="file-import" accept="application/json" hidden>
+      </div>
+      <button type="button" class="btn ghost danger" id="btn-reset">Xoá toàn bộ tiến độ</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Claude API (tuỳ chọn)</legend>
+      <p class="muted small">
+        Nhập API key để bấm <b>“Sinh bài mới bằng AI”</b> ở mỗi bài. Không nhập vẫn học
+        bình thường bằng ngân hàng bài có sẵn.
+      </p>
+      <div class="warn small">
+        ⚠️ Key được lưu trong <code>localStorage</code> của chính trình duyệt này và gửi
+        thẳng tới api.anthropic.com. Chỉ dùng key cá nhân có giới hạn chi tiêu, và
+        <b>không nhập trên máy dùng chung</b>.
+      </div>
+      <label class="row">
+        <span>API key</span>
+        <input type="password" id="set-apikey" placeholder="sk-ant-…" autocomplete="off">
+      </label>
+    </fieldset>
+
+    <menu class="dlg-actions">
+      <button class="btn primary" value="close">Xong</button>
+    </menu>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" hidden></div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>

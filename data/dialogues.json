@@ -1,0 +1,699 @@
+[
+  {
+    "id": "d01",
+    "title": "At the pharmacy",
+    "titleVi": "Ở hiệu thuốc",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Good morning. How can I help you?" },
+      { "speaker": "B", "text": "Good morning. I have had a headache since yesterday evening." },
+      { "speaker": "A", "text": "I see. Do you also have a fever or a sore throat?" },
+      { "speaker": "B", "text": "No fever, but I feel very tired and I did not sleep well." },
+      { "speaker": "A", "text": "Have you taken anything for it?" },
+      { "speaker": "B", "text": "Only some hot tea. I did not want to take medicine without asking first." },
+      { "speaker": "A", "text": "That was sensible. I can give you these tablets. Take one after breakfast and one after dinner." },
+      { "speaker": "B", "text": "Two a day. Should I take them with food?" },
+      { "speaker": "A", "text": "Yes, always with food. And drink plenty of water. If the pain is still there on Friday, please see a doctor." },
+      { "speaker": "B", "text": "Thank you. How much is that?" },
+      { "speaker": "A", "text": "Forty five thousand dong, please. Here is your receipt." }
+    ],
+    "questions": [
+      { "q": "How long has the customer had a headache?", "options": ["Since this morning", "Since yesterday evening", "For a week", "For three days"], "answer": 1, "explainVi": "Khách nói “since yesterday evening” — từ tối hôm qua." },
+      { "q": "What has the customer already tried?", "options": ["Some tablets", "Nothing at all", "Only hot tea", "A visit to the doctor"], "answer": 2, "explainVi": "Khách trả lời “Only some hot tea” — chỉ uống trà nóng." },
+      { "q": "How should the tablets be taken?", "options": ["One a day before bed", "Twice a day with food", "Three times a day with water only", "Whenever the pain starts"], "answer": 1, "explainVi": "Dược sĩ nói uống một viên sau bữa sáng và một viên sau bữa tối, luôn uống cùng thức ăn." },
+      { "q": "What should the customer do if the pain continues?", "options": ["Take more tablets", "Come back for a refund", "See a doctor on Friday", "Drink more tea"], "answer": 2, "explainVi": "“If the pain is still there on Friday, please see a doctor.”" }
+    ]
+  },
+  {
+    "id": "d02",
+    "title": "Booking a hotel room",
+    "titleVi": "Đặt phòng khách sạn",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Sunrise Hotel, good afternoon." },
+      { "speaker": "B", "text": "Hello. I would like to book a room for next weekend, please." },
+      { "speaker": "A", "text": "Certainly. For how many nights?" },
+      { "speaker": "B", "text": "Two nights, Friday and Saturday. There will be two of us." },
+      { "speaker": "A", "text": "We have a double room with a garden view, or a twin room facing the street." },
+      { "speaker": "B", "text": "The garden one sounds quieter. How much is it per night?" },
+      { "speaker": "A", "text": "Eight hundred thousand dong, and that includes breakfast." },
+      { "speaker": "B", "text": "That is fine. Is there parking for a motorbike?" },
+      { "speaker": "A", "text": "Yes, free parking behind the building. Check in is from two o'clock." },
+      { "speaker": "B", "text": "Perfect. My name is Linh Tran. Can I pay when I arrive?" },
+      { "speaker": "A", "text": "Of course. I have booked it under your name. See you on Friday." }
+    ],
+    "questions": [
+      { "q": "How many nights does the woman want?", "options": ["One night", "Two nights", "Three nights", "A whole week"], "answer": 1, "explainVi": "Cô ấy nói “Two nights, Friday and Saturday”." },
+      { "q": "Why does she choose the garden room?", "options": ["It is cheaper", "It is bigger", "She thinks it is quieter", "It has a better bed"], "answer": 2, "explainVi": "“The garden one sounds quieter” — cô ấy nghĩ phòng đó yên tĩnh hơn." },
+      { "q": "What is included in the price?", "options": ["Dinner", "Breakfast", "Airport transfer", "A guided tour"], "answer": 1, "explainVi": "Lễ tân nói “that includes breakfast”." },
+      { "q": "When can guests check in?", "options": ["From noon", "From two o'clock", "From four o'clock", "Any time"], "answer": 1, "explainVi": "“Check in is from two o'clock.”" }
+    ]
+  },
+  {
+    "id": "d03",
+    "title": "A problem with an order",
+    "titleVi": "Vấn đề với đơn hàng",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Hello, customer service. How can I help?" },
+      { "speaker": "B", "text": "Hi. I ordered a pair of running shoes last Monday, but the wrong size arrived." },
+      { "speaker": "A", "text": "I am sorry about that. What size did you order?" },
+      { "speaker": "B", "text": "I ordered size forty two, but the box contains size thirty nine." },
+      { "speaker": "A", "text": "Do you still have the receipt and the original box?" },
+      { "speaker": "B", "text": "Yes, I kept everything. I have not worn them at all." },
+      { "speaker": "A", "text": "Good. We can send you the correct size, or give you a full refund." },
+      { "speaker": "B", "text": "I would prefer the correct size, if you still have it." },
+      { "speaker": "A", "text": "Let me check. Yes, size forty two is in stock. It should arrive within three days." },
+      { "speaker": "B", "text": "And how do I return the wrong pair?" },
+      { "speaker": "A", "text": "Our driver will collect it when he delivers the new one. You do not pay anything extra." }
+    ],
+    "questions": [
+      { "q": "What is the problem?", "options": ["The shoes are damaged", "The wrong size arrived", "The order never arrived", "The colour is wrong"], "answer": 1, "explainVi": "Khách nói “the wrong size arrived” — giao sai cỡ." },
+      { "q": "Which size did the customer actually receive?", "options": ["Size 42", "Size 39", "Size 40", "Size 45"], "answer": 1, "explainVi": "“the box contains size thirty nine” — hộp chứa cỡ 39." },
+      { "q": "What does the customer choose?", "options": ["A full refund", "A discount voucher", "The correct size", "A different model"], "answer": 2, "explainVi": "“I would prefer the correct size, if you still have it.”" },
+      { "q": "How will the wrong pair be returned?", "options": ["By post, paid by the customer", "The driver will collect it", "The customer must bring it to the shop", "It cannot be returned"], "answer": 1, "explainVi": "“Our driver will collect it when he delivers the new one.”" }
+    ]
+  },
+  {
+    "id": "d04",
+    "title": "Planning a weekend trip",
+    "titleVi": "Lên kế hoạch chuyến đi cuối tuần",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Are you free this weekend? I am thinking of going to the mountains." },
+      { "speaker": "B", "text": "That sounds lovely. How far is it from here?" },
+      { "speaker": "A", "text": "About three hours by bus, or two hours if we drive." },
+      { "speaker": "B", "text": "Let us take the bus. I do not want to drive after a long week." },
+      { "speaker": "A", "text": "Good idea. The first bus leaves at six in the morning." },
+      { "speaker": "B", "text": "Six is quite early. Is there a later one?" },
+      { "speaker": "A", "text": "There is one at half past eight, but then we arrive after lunch." },
+      { "speaker": "B", "text": "That is fine with me. We can eat on the way." },
+      { "speaker": "A", "text": "Perfect. I will book two tickets tonight. Remember to bring a warm jacket." },
+      { "speaker": "B", "text": "Is it that cold up there?" },
+      { "speaker": "A", "text": "In the evening, yes. The temperature drops quickly after sunset." }
+    ],
+    "questions": [
+      { "q": "How will they travel?", "options": ["By car", "By bus", "By train", "By motorbike"], "answer": 1, "explainVi": "“Let us take the bus” — họ chọn đi xe buýt." },
+      { "q": "Why does B not want to drive?", "options": ["He cannot drive", "The car is broken", "He is tired after a long week", "It is too expensive"], "answer": 2, "explainVi": "“I do not want to drive after a long week.”" },
+      { "q": "Which bus will they take?", "options": ["The six o'clock bus", "The half past eight bus", "The lunchtime bus", "They have not decided"], "answer": 1, "explainVi": "B thấy 6 giờ quá sớm và đồng ý với chuyến 8 giờ rưỡi." },
+      { "q": "Why should they bring a warm jacket?", "options": ["It rains all day", "It is cold in the evening", "The bus is air conditioned", "It is a rule of the hotel"], "answer": 1, "explainVi": "“The temperature drops quickly after sunset.”" }
+    ]
+  },
+  {
+    "id": "d05",
+    "title": "My first week at work",
+    "titleVi": "Tuần đầu tiên đi làm của tôi",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Last Monday was my first day at a new company. I woke up at five o'clock because I was nervous, and I arrived almost an hour early." },
+      { "speaker": "N", "text": "The office is on the fourth floor of an old building near the river. My desk is next to a large window, so the room is bright all morning." },
+      { "speaker": "N", "text": "My manager, Mrs Hoa, introduced me to eight colleagues. Everybody was friendly, but I could not remember all their names on the first day." },
+      { "speaker": "N", "text": "In the afternoon I had training on the new software. It looked difficult at first, but by Thursday I could use it without help." },
+      { "speaker": "N", "text": "On Friday we all had lunch together in a small restaurant. My manager said I had made good progress, and that made me feel much more confident." }
+    ],
+    "questions": [
+      { "q": "Why did the writer wake up at five?", "options": ["The bus was early", "She was nervous", "She had to cook", "Her alarm was broken"], "answer": 1, "explainVi": "“I woke up at five o'clock because I was nervous.”" },
+      { "q": "Where is the office?", "options": ["On the first floor near the market", "On the fourth floor near the river", "Outside the city", "Next to a school"], "answer": 1, "explainVi": "“on the fourth floor of an old building near the river”." },
+      { "q": "What was difficult on the first day?", "options": ["Finding the building", "Using the lift", "Remembering all the names", "Talking to the manager"], "answer": 2, "explainVi": "“I could not remember all their names on the first day.”" },
+      { "q": "How did the writer feel on Friday?", "options": ["Tired and worried", "More confident", "Bored", "Angry with her manager"], "answer": 1, "explainVi": "Lời khen của quản lý “made me feel much more confident”." }
+    ]
+  },
+  {
+    "id": "d06",
+    "title": "Asking for directions",
+    "titleVi": "Hỏi đường",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Excuse me, could you tell me how to get to the National Museum?" },
+      { "speaker": "B", "text": "Of course. Are you walking or taking a bus?" },
+      { "speaker": "A", "text": "I would rather walk if it is not too far." },
+      { "speaker": "B", "text": "It is about fifteen minutes on foot. Go straight along this street until you see a big bridge." },
+      { "speaker": "A", "text": "Straight ahead to the bridge. And then?" },
+      { "speaker": "B", "text": "Do not cross the bridge. Turn left just before it and follow the river." },
+      { "speaker": "A", "text": "Turn left before the bridge. Is the museum on the river?" },
+      { "speaker": "B", "text": "Almost. It is the second building after the small park, a white one with a red roof." },
+      { "speaker": "A", "text": "That is very clear, thank you. Do you know if it is open today?" },
+      { "speaker": "B", "text": "It is Wednesday, so yes, and entry is free on Wednesdays." },
+      { "speaker": "A", "text": "That is lucky. Thanks again for your help." }
+    ],
+    "questions": [
+      { "q": "How long does the walk take?", "options": ["Five minutes", "Fifteen minutes", "Half an hour", "An hour"], "answer": 1, "explainVi": "“It is about fifteen minutes on foot.”" },
+      { "q": "What should the tourist do at the bridge?", "options": ["Cross it", "Turn left before it", "Turn right after it", "Wait for a bus"], "answer": 1, "explainVi": "“Do not cross the bridge. Turn left just before it.”" },
+      { "q": "How is the museum described?", "options": ["Grey with a flat roof", "White with a red roof", "Next to the bridge", "Behind the park"], "answer": 1, "explainVi": "“a white one with a red roof”." },
+      { "q": "Why is today a good day to visit?", "options": ["It is quiet", "The weather is good", "Entry is free on Wednesdays", "There is a special show"], "answer": 2, "explainVi": "“entry is free on Wednesdays”." }
+    ]
+  },
+  {
+    "id": "d07",
+    "title": "A job interview",
+    "titleVi": "Buổi phỏng vấn xin việc",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Please sit down. Thank you for coming today." },
+      { "speaker": "B", "text": "Thank you for inviting me." },
+      { "speaker": "A", "text": "Could you tell me a little about your experience?" },
+      { "speaker": "B", "text": "Certainly. I worked for three years in a small travel agency, mostly with foreign customers." },
+      { "speaker": "A", "text": "And why do you want to leave that job?" },
+      { "speaker": "B", "text": "I enjoyed it very much, but the company is small and I cannot learn anything new there." },
+      { "speaker": "A", "text": "I understand. This position needs good English and some knowledge of accounting." },
+      { "speaker": "B", "text": "My English is quite strong. I took an accounting course last year, although I have not used it at work yet." },
+      { "speaker": "A", "text": "That is honest, thank you. We provide two weeks of training for new staff." },
+      { "speaker": "B", "text": "That would be very helpful. When would you need me to start?" },
+      { "speaker": "A", "text": "The first of next month, if possible. We will call you on Friday." }
+    ],
+    "questions": [
+      { "q": "Where did the candidate work before?", "options": ["A bank", "A travel agency", "A school", "A hotel"], "answer": 1, "explainVi": "“I worked for three years in a small travel agency.”" },
+      { "q": "Why does she want to change jobs?", "options": ["The pay is low", "She cannot learn anything new", "She dislikes her colleagues", "The office is far away"], "answer": 1, "explainVi": "“the company is small and I cannot learn anything new there”." },
+      { "q": "What is true about her accounting knowledge?", "options": ["She has ten years of experience", "She studied it but has not used it at work", "She knows nothing about it", "She teaches accounting"], "answer": 1, "explainVi": "“I took an accounting course last year, although I have not used it at work yet.”" },
+      { "q": "When will she hear the result?", "options": ["Immediately", "On Friday", "Next month", "In two weeks"], "answer": 1, "explainVi": "“We will call you on Friday.”" }
+    ]
+  },
+  {
+    "id": "d08",
+    "title": "The lost wallet",
+    "titleVi": "Chiếc ví bị mất",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Yesterday afternoon Minh lost his wallet on the bus. He only noticed at the supermarket, when he wanted to pay for his shopping." },
+      { "speaker": "N", "text": "He left the shopping at the counter and ran back to the bus stop, but of course the bus had already gone." },
+      { "speaker": "N", "text": "There was about two hundred thousand dong inside, and, more importantly, his student card and his house key." },
+      { "speaker": "N", "text": "He called the bus company. A woman took his phone number and told him to wait. Two hours later, the driver phoned him." },
+      { "speaker": "N", "text": "A passenger had found the wallet under a seat and given it to him. Everything was still inside. Minh collected it the next morning and gave the driver a box of cakes to say thank you." }
+    ],
+    "questions": [
+      { "q": "When did Minh notice the wallet was missing?", "options": ["On the bus", "At the supermarket", "At home", "At the bus company"], "answer": 1, "explainVi": "“He only noticed at the supermarket, when he wanted to pay.”" },
+      { "q": "What was inside the wallet besides money?", "options": ["A passport and a photo", "A student card and a house key", "A bank card only", "Nothing else"], "answer": 1, "explainVi": "“his student card and his house key”." },
+      { "q": "Who found the wallet?", "options": ["The driver", "A passenger", "A shop assistant", "A police officer"], "answer": 1, "explainVi": "“A passenger had found the wallet under a seat.”" },
+      { "q": "How did Minh thank the driver?", "options": ["He gave him money", "He gave him a box of cakes", "He wrote a letter", "He bought him lunch"], "answer": 1, "explainVi": "“gave the driver a box of cakes to say thank you”." }
+    ]
+  },
+  {
+    "id": "d09",
+    "title": "At the restaurant",
+    "titleVi": "Ở nhà hàng",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Good evening. Do you have a booking?" },
+      { "speaker": "B", "text": "Yes, a table for two under the name Phong." },
+      { "speaker": "A", "text": "Here it is. Would you like to sit inside or on the terrace?" },
+      { "speaker": "B", "text": "The terrace, please. It is a warm evening." },
+      { "speaker": "A", "text": "Of course. Here are the menus. Can I bring you something to drink first?" },
+      { "speaker": "B", "text": "Two glasses of iced tea, please. And could you tell me what the fish of the day is?" },
+      { "speaker": "A", "text": "Tonight it is grilled sea bass with lemon and herbs. It is very popular." },
+      { "speaker": "B", "text": "One of those, then. My friend does not eat meat or fish. What do you suggest?" },
+      { "speaker": "A", "text": "The vegetable curry with rice is completely vegetarian and quite spicy." },
+      { "speaker": "B", "text": "She likes spicy food, so that is perfect. Could we also have some bread?" },
+      { "speaker": "A", "text": "Certainly. The bread is free. Your food will be about fifteen minutes." }
+    ],
+    "questions": [
+      { "q": "Where do they decide to sit?", "options": ["Inside", "On the terrace", "Near the kitchen", "At the bar"], "answer": 1, "explainVi": "“The terrace, please. It is a warm evening.”" },
+      { "q": "What is the fish of the day?", "options": ["Fried carp", "Grilled sea bass", "Fish soup", "Steamed salmon"], "answer": 1, "explainVi": "“Tonight it is grilled sea bass with lemon and herbs.”" },
+      { "q": "Why does the friend order the curry?", "options": ["It is the cheapest dish", "She does not eat meat or fish", "It comes with bread", "It is the fastest to cook"], "answer": 1, "explainVi": "“My friend does not eat meat or fish” và món cà ri chay hoàn toàn." },
+      { "q": "What does the waiter say about the bread?", "options": ["It costs extra", "It is free", "There is none left", "It comes with the drinks"], "answer": 1, "explainVi": "“The bread is free.”" }
+    ]
+  },
+  {
+    "id": "d10",
+    "title": "Neighbours and noise",
+    "titleVi": "Hàng xóm và tiếng ồn",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Hi Nam. Have you got a minute?" },
+      { "speaker": "B", "text": "Sure, what is wrong? You look a bit worried." },
+      { "speaker": "A", "text": "It is about the music last night. It went on until nearly two in the morning." },
+      { "speaker": "B", "text": "Oh no, I am really sorry. My brother had a birthday party and I lost track of time." },
+      { "speaker": "A", "text": "I understand, but my daughter has exams this week and she could not sleep." },
+      { "speaker": "B", "text": "That is my fault. I should have told you before, or at least closed the windows." },
+      { "speaker": "A", "text": "Thank you for saying that. I did not want to complain to the landlord." },
+      { "speaker": "B", "text": "Please do not. Next time I will finish by eleven, I promise." },
+      { "speaker": "A", "text": "That is fair. And if you tell me in advance, we can plan around it." },
+      { "speaker": "B", "text": "Agreed. And please knock on my door if it ever happens again." },
+      { "speaker": "A", "text": "I will. Thanks for being so reasonable about it." }
+    ],
+    "questions": [
+      { "q": "What is the problem?", "options": ["A broken window", "Loud music late at night", "Rubbish in the corridor", "A parking space"], "answer": 1, "explainVi": "Tiếng nhạc kéo dài “until nearly two in the morning”." },
+      { "q": "Why was there a party?", "options": ["It was a wedding", "It was his brother's birthday", "It was a new year party", "He got a new job"], "answer": 1, "explainVi": "“My brother had a birthday party.”" },
+      { "q": "Why is the noise a particular problem this week?", "options": ["The neighbour works at night", "His daughter has exams", "The baby is ill", "The walls are thin"], "answer": 1, "explainVi": "“my daughter has exams this week and she could not sleep”." },
+      { "q": "What does Nam promise?", "options": ["To move out", "To pay for the damage", "To finish by eleven next time", "To never have parties again"], "answer": 2, "explainVi": "“Next time I will finish by eleven, I promise.”" }
+    ]
+  },
+  {
+    "id": "d11",
+    "title": "Learning to cook",
+    "titleVi": "Học nấu ăn",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Two years ago I could only cook instant noodles. I ate out almost every day and I spent far too much money." },
+      { "speaker": "N", "text": "One winter my mother sent me a small cookbook. The first recipe I tried was tomato soup, and honestly it was terrible." },
+      { "speaker": "N", "text": "I did not give up. I cooked the same soup every Sunday for a month, and each time it got a little better." },
+      { "speaker": "N", "text": "Now I cook at home five days a week. My favourite dish is grilled fish with herbs, which takes only twenty minutes." },
+      { "speaker": "N", "text": "I still make mistakes, especially with cakes, but I save about two million dong a month and I feel much healthier." }
+    ],
+    "questions": [
+      { "q": "What could the writer cook two years ago?", "options": ["Grilled fish", "Only instant noodles", "Cakes", "Tomato soup"], "answer": 1, "explainVi": "“I could only cook instant noodles.”" },
+      { "q": "Who gave the writer a cookbook?", "options": ["A friend", "A colleague", "His mother", "A teacher"], "answer": 2, "explainVi": "“my mother sent me a small cookbook”." },
+      { "q": "How did the writer improve at making soup?", "options": ["By taking a class", "By cooking it every Sunday for a month", "By watching videos", "By asking a chef"], "answer": 1, "explainVi": "“I cooked the same soup every Sunday for a month.”" },
+      { "q": "What does the writer still find difficult?", "options": ["Fish", "Soup", "Cakes", "Rice"], "answer": 2, "explainVi": "“I still make mistakes, especially with cakes.”" }
+    ]
+  },
+  {
+    "id": "d12",
+    "title": "Opening a bank account",
+    "titleVi": "Mở tài khoản ngân hàng",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Good morning. I would like to open a savings account." },
+      { "speaker": "B", "text": "Certainly. Do you have your identity card with you?" },
+      { "speaker": "A", "text": "Yes, here it is. Do I need anything else?" },
+      { "speaker": "B", "text": "Just proof of your address. A recent electricity bill is fine." },
+      { "speaker": "A", "text": "I have one from last month on my phone. Is that acceptable?" },
+      { "speaker": "B", "text": "Yes, that is fine. What amount would you like to start with?" },
+      { "speaker": "A", "text": "Five million dong. How much interest does the account pay?" },
+      { "speaker": "B", "text": "Four and a half percent a year, if you leave the money for twelve months." },
+      { "speaker": "A", "text": "And if I need to take some out earlier?" },
+      { "speaker": "B", "text": "You can, but then the interest is much lower. Please read this page before you sign." },
+      { "speaker": "A", "text": "I will. Thank you for explaining it so clearly." }
+    ],
+    "questions": [
+      { "q": "What documents does the customer need?", "options": ["A passport only", "An identity card and proof of address", "A work contract", "Nothing at all"], "answer": 1, "explainVi": "Nhân viên yêu cầu thẻ căn cước và giấy tờ chứng minh địa chỉ." },
+      { "q": "What does the customer use as proof of address?", "options": ["A rental contract", "A recent electricity bill", "A bank letter", "A photograph"], "answer": 1, "explainVi": "“A recent electricity bill is fine” và khách có hoá đơn tháng trước." },
+      { "q": "What interest does the account pay?", "options": ["Two percent", "Four and a half percent", "Ten percent", "No interest"], "answer": 1, "explainVi": "“Four and a half percent a year.”" },
+      { "q": "What happens if money is taken out early?", "options": ["It is not allowed", "The account is closed", "The interest is much lower", "There is a large fine"], "answer": 2, "explainVi": "“then the interest is much lower”." }
+    ]
+  },
+  {
+    "id": "d13",
+    "title": "The broken air conditioner",
+    "titleVi": "Máy điều hoà bị hỏng",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Hello, is that Mr Dung? This is Mai from apartment 302." },
+      { "speaker": "B", "text": "Yes, hello Mai. Is something wrong?" },
+      { "speaker": "A", "text": "The air conditioner stopped working on Sunday night. It makes a strange noise but no cold air comes out." },
+      { "speaker": "B", "text": "That does not sound good. Have you tried turning it off and on again?" },
+      { "speaker": "A", "text": "Several times, and I also cleaned the filter. Nothing helped." },
+      { "speaker": "B", "text": "Then it probably needs a technician. I know someone who can come tomorrow afternoon." },
+      { "speaker": "A", "text": "Tomorrow afternoon is difficult, I am at work until six." },
+      { "speaker": "B", "text": "Could he come on Thursday morning instead? I can meet him if you leave a key." },
+      { "speaker": "A", "text": "That would be very kind. I will leave the key with the security guard." },
+      { "speaker": "B", "text": "Perfect. And do not worry, repairs are my responsibility, not yours." },
+      { "speaker": "A", "text": "Thank you. That is a relief." }
+    ],
+    "questions": [
+      { "q": "What is wrong with the air conditioner?", "options": ["It makes noise but no cold air", "It does not turn on", "It leaks water", "It smells bad"], "answer": 0, "explainVi": "“It makes a strange noise but no cold air comes out.”" },
+      { "q": "What has Mai already tried?", "options": ["Nothing", "Calling a technician", "Turning it off and on, and cleaning the filter", "Buying a new one"], "answer": 2, "explainVi": "Cô ấy đã tắt bật nhiều lần và vệ sinh lưới lọc." },
+      { "q": "Why can the technician not come tomorrow afternoon?", "options": ["He is busy", "Mai is at work until six", "The building is closed", "It is a holiday"], "answer": 1, "explainVi": "“I am at work until six.”" },
+      { "q": "Who will pay for the repair?", "options": ["Mai", "The landlord", "They will share the cost", "The security guard"], "answer": 1, "explainVi": "Chủ nhà nói “repairs are my responsibility, not yours”." }
+    ]
+  },
+  {
+    "id": "d14",
+    "title": "A change of plan",
+    "titleVi": "Thay đổi kế hoạch",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Are we still meeting at the café at four?" },
+      { "speaker": "B", "text": "Actually, that is why I called. Something has come up at work." },
+      { "speaker": "A", "text": "Oh no. Do we need to cancel completely?" },
+      { "speaker": "B", "text": "Not cancel, just move it later. Could we say six instead?" },
+      { "speaker": "A", "text": "Six is fine for me, but the café closes at half past six." },
+      { "speaker": "B", "text": "You are right. What about the noodle place opposite the station?" },
+      { "speaker": "A", "text": "Good idea, and then we can eat at the same time." },
+      { "speaker": "B", "text": "Exactly. I will book a table so we do not have to queue." },
+      { "speaker": "A", "text": "Great. Shall I bring the documents you asked for?" },
+      { "speaker": "B", "text": "Yes please, especially the photos from last month." },
+      { "speaker": "A", "text": "They are already in my bag. See you at six." }
+    ],
+    "questions": [
+      { "q": "Why does B want to change the plan?", "options": ["He is ill", "Something came up at work", "The café is closed", "He forgot the date"], "answer": 1, "explainVi": "“Something has come up at work.”" },
+      { "q": "Why can they not meet at the café at six?", "options": ["It is too expensive", "It closes at half past six", "It is too far", "It is full"], "answer": 1, "explainVi": "“the café closes at half past six”." },
+      { "q": "Where will they meet instead?", "options": ["At the station", "At the office", "At the noodle place opposite the station", "At A's house"], "answer": 2, "explainVi": "“What about the noodle place opposite the station?”" },
+      { "q": "What should A bring?", "options": ["Money", "The documents, especially the photos", "A laptop", "Nothing"], "answer": 1, "explainVi": "“Yes please, especially the photos from last month.”" }
+    ]
+  },
+  {
+    "id": "d15",
+    "title": "Recycling in our building",
+    "titleVi": "Tái chế trong toà nhà của chúng tôi",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Last year our building started a simple recycling programme. Before that, everything went into one large bin behind the car park." },
+      { "speaker": "N", "text": "Now there are three bins: green for glass, blue for paper, and yellow for plastic. Food waste still goes in the old grey bin." },
+      { "speaker": "N", "text": "At first many people put the wrong things in the wrong bins, so the manager put a small picture guide on every floor." },
+      { "speaker": "N", "text": "The pictures helped a lot. After two months, the amount of rubbish going to the dump fell by almost a third." },
+      { "speaker": "N", "text": "The money from selling the paper and glass now pays for the flowers in the entrance hall, which everybody enjoys." }
+    ],
+    "questions": [
+      { "q": "How many bins are there now for recycling?", "options": ["One", "Two", "Three", "Four"], "answer": 2, "explainVi": "Xanh lá cho thuỷ tinh, xanh dương cho giấy, vàng cho nhựa — ba thùng tái chế (thùng xám là rác thực phẩm)." },
+      { "q": "Which bin is for paper?", "options": ["Green", "Blue", "Yellow", "Grey"], "answer": 1, "explainVi": "“blue for paper”." },
+      { "q": "What solved the problem of wrong bins?", "options": ["A fine", "A picture guide on every floor", "New staff", "Bigger bins"], "answer": 1, "explainVi": "“the manager put a small picture guide on every floor”." },
+      { "q": "What is the money from recycling used for?", "options": ["Cleaning the car park", "Flowers in the entrance hall", "Paying the manager", "New bins"], "answer": 1, "explainVi": "“pays for the flowers in the entrance hall”." }
+    ]
+  },
+  {
+    "id": "d16",
+    "title": "At the airport check-in desk",
+    "titleVi": "Ở quầy làm thủ tục sân bay",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Good morning. Passport and ticket, please." },
+      { "speaker": "B", "text": "Here you are. I am flying to Da Nang." },
+      { "speaker": "A", "text": "Thank you. Are you checking in any luggage?" },
+      { "speaker": "B", "text": "One suitcase. Is twenty kilos still the limit?" },
+      { "speaker": "A", "text": "Twenty three, actually. Let me weigh it. Twenty one point five, that is fine." },
+      { "speaker": "B", "text": "Good. Can I take this small backpack on board?" },
+      { "speaker": "A", "text": "Yes, if it fits under the seat. Would you prefer a window or an aisle seat?" },
+      { "speaker": "B", "text": "A window seat, please, near the front if possible." },
+      { "speaker": "A", "text": "Seat 8A. Boarding starts at ten past nine at gate twelve." },
+      { "speaker": "B", "text": "Is the flight on time?" },
+      { "speaker": "A", "text": "At the moment yes, but please check the screens after security." }
+    ],
+    "questions": [
+      { "q": "What is the luggage weight limit?", "options": ["Twenty kilos", "Twenty three kilos", "Twenty one kilos", "Twenty five kilos"], "answer": 1, "explainVi": "“Twenty three, actually.”" },
+      { "q": "What seat does the passenger get?", "options": ["An aisle seat at the back", "A window seat, 8A", "A middle seat", "He does not choose"], "answer": 1, "explainVi": "Khách xin ghế cửa sổ gần đầu và nhận ghế 8A." },
+      { "q": "When does boarding start?", "options": ["At nine o'clock", "At ten past nine", "At half past nine", "At ten o'clock"], "answer": 1, "explainVi": "“Boarding starts at ten past nine.”" },
+      { "q": "What does the staff member advise?", "options": ["To buy insurance", "To check the screens after security", "To arrive earlier next time", "To weigh the backpack"], "answer": 1, "explainVi": "“please check the screens after security”." }
+    ]
+  },
+  {
+    "id": "d17",
+    "title": "Joining a gym",
+    "titleVi": "Đăng ký phòng tập",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Hi, I saw your advertisement outside. Could you tell me about the memberships?" },
+      { "speaker": "B", "text": "Of course. We have a monthly plan and a yearly plan." },
+      { "speaker": "A", "text": "How much is each?" },
+      { "speaker": "B", "text": "The monthly plan is four hundred thousand dong. The yearly plan is four million, so you save two months." },
+      { "speaker": "A", "text": "That is a good deal, but I am not sure I will still be in the city next year." },
+      { "speaker": "B", "text": "Then start with the monthly plan. You can change to the yearly one at any time." },
+      { "speaker": "A", "text": "Do I need to book the classes?" },
+      { "speaker": "B", "text": "Yes, through the app. Yoga on Tuesday and Thursday fills up very quickly." },
+      { "speaker": "A", "text": "And are the classes included in the price?" },
+      { "speaker": "B", "text": "All group classes are included. Only personal training costs extra." },
+      { "speaker": "A", "text": "Great. Can I try one class before I decide?" },
+      { "speaker": "B", "text": "Certainly, the first class is always free." }
+    ],
+    "questions": [
+      { "q": "How much does the yearly plan cost?", "options": ["Four hundred thousand dong", "Four million dong", "Two million dong", "Five million dong"], "answer": 1, "explainVi": "“The yearly plan is four million.”" },
+      { "q": "Why does the customer not take the yearly plan?", "options": ["It is too expensive", "She may not stay in the city", "She only wants yoga", "She prefers to pay cash"], "answer": 1, "explainVi": "“I am not sure I will still be in the city next year.”" },
+      { "q": "Which classes fill up quickly?", "options": ["Swimming", "Yoga on Tuesday and Thursday", "Boxing at the weekend", "Personal training"], "answer": 1, "explainVi": "“Yoga on Tuesday and Thursday fills up very quickly.”" },
+      { "q": "What costs extra?", "options": ["Group classes", "The app", "Personal training", "The first class"], "answer": 2, "explainVi": "“Only personal training costs extra.”" }
+    ]
+  },
+  {
+    "id": "d18",
+    "title": "The village school",
+    "titleVi": "Ngôi trường làng",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "The school in my village was built in nineteen seventy two. It has only four classrooms and one small library." },
+      { "speaker": "N", "text": "When I was a pupil there, we had no electricity in the afternoon, so lessons finished at half past three." },
+      { "speaker": "N", "text": "Last year some former students, including me, collected money to repair the roof and buy twenty computers." },
+      { "speaker": "N", "text": "Now the children can use the internet twice a week. Their favourite subject has become English, because they can watch videos." },
+      { "speaker": "N", "text": "The head teacher says results have improved, but she still needs one more English teacher for the older classes." }
+    ],
+    "questions": [
+      { "q": "When was the school built?", "options": ["In 1962", "In 1972", "In 1982", "Last year"], "answer": 1, "explainVi": "“built in nineteen seventy two”." },
+      { "q": "Why did lessons finish early in the past?", "options": ["The children worked on farms", "There was no electricity in the afternoon", "The teachers left early", "It was too hot"], "answer": 1, "explainVi": "“we had no electricity in the afternoon”." },
+      { "q": "What did the former students pay for?", "options": ["A new building", "The roof and twenty computers", "Books and uniforms", "A school bus"], "answer": 1, "explainVi": "“repair the roof and buy twenty computers”." },
+      { "q": "What does the school still need?", "options": ["More computers", "A bigger library", "Another English teacher", "A new head teacher"], "answer": 2, "explainVi": "“she still needs one more English teacher for the older classes”." }
+    ]
+  },
+  {
+    "id": "d19",
+    "title": "Returning a jacket",
+    "titleVi": "Trả lại chiếc áo khoác",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Excuse me, I bought this jacket here on Saturday." },
+      { "speaker": "B", "text": "I remember. Is there a problem with it?" },
+      { "speaker": "A", "text": "The zip broke the second time I wore it." },
+      { "speaker": "B", "text": "I am very sorry. Do you have the receipt?" },
+      { "speaker": "A", "text": "Yes, here. I would like a refund rather than another jacket." },
+      { "speaker": "B", "text": "That is no problem for faulty goods. How did you pay?" },
+      { "speaker": "A", "text": "By card." },
+      { "speaker": "B", "text": "Then the money goes back to the same card. It usually takes three working days." },
+      { "speaker": "A", "text": "Three days is fine. Do I need to sign anything?" },
+      { "speaker": "B", "text": "Just here, at the bottom. And please keep this copy." },
+      { "speaker": "A", "text": "Thank you for dealing with it so quickly." }
+    ],
+    "questions": [
+      { "q": "What is wrong with the jacket?", "options": ["It is the wrong size", "The zip broke", "There is a stain", "The colour faded"], "answer": 1, "explainVi": "“The zip broke the second time I wore it.”" },
+      { "q": "What does the customer want?", "options": ["A different jacket", "A repair", "A refund", "A discount"], "answer": 2, "explainVi": "“I would like a refund rather than another jacket.”" },
+      { "q": "How will the money be returned?", "options": ["In cash", "To the same card", "As a store voucher", "By bank transfer to a new account"], "answer": 1, "explainVi": "Khách trả bằng thẻ nên “the money goes back to the same card”." },
+      { "q": "How long will the refund take?", "options": ["Immediately", "Three working days", "One week", "One month"], "answer": 1, "explainVi": "“It usually takes three working days.”" }
+    ]
+  },
+  {
+    "id": "d20",
+    "title": "Talking about the weekend",
+    "titleVi": "Nói về cuối tuần",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "You look tired. Did you have a busy weekend?" },
+      { "speaker": "B", "text": "Very. My cousins came from the countryside and stayed at our flat." },
+      { "speaker": "A", "text": "How many of them?" },
+      { "speaker": "B", "text": "Five, plus two small children. Our flat has only two bedrooms." },
+      { "speaker": "A", "text": "That must have been crowded. What did you do?" },
+      { "speaker": "B", "text": "On Saturday we took them to the water park. The queues were terrible but the children loved it." },
+      { "speaker": "A", "text": "And on Sunday?" },
+      { "speaker": "B", "text": "We cooked at home. My aunt taught me how to make fish soup properly." },
+      { "speaker": "A", "text": "So it was not all hard work." },
+      { "speaker": "B", "text": "No, it was lovely. But this weekend I am going to sleep until noon." },
+      { "speaker": "A", "text": "You have certainly earned it." }
+    ],
+    "questions": [
+      { "q": "Who visited B?", "options": ["Old school friends", "Cousins from the countryside", "Colleagues", "Neighbours"], "answer": 1, "explainVi": "“My cousins came from the countryside.”" },
+      { "q": "How many visitors were there in total?", "options": ["Five", "Two", "Seven", "Three"], "answer": 2, "explainVi": "Năm người lớn cộng hai trẻ nhỏ là bảy người." },
+      { "q": "What was the problem at the water park?", "options": ["It rained", "It was closed", "The queues were terrible", "The children were bored"], "answer": 2, "explainVi": "“The queues were terrible but the children loved it.”" },
+      { "q": "What did B learn on Sunday?", "options": ["How to swim", "How to make fish soup", "How to drive", "A new game"], "answer": 1, "explainVi": "“My aunt taught me how to make fish soup properly.”" }
+    ]
+  },
+  {
+    "id": "d21",
+    "title": "A phone that stopped working",
+    "titleVi": "Chiếc điện thoại ngừng hoạt động",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Hello, my phone will not charge. Can you look at it?" },
+      { "speaker": "B", "text": "Let me see. How old is it?" },
+      { "speaker": "A", "text": "About eighteen months. It was fine until last Tuesday." },
+      { "speaker": "B", "text": "Did anything happen last Tuesday? Water, a fall?" },
+      { "speaker": "A", "text": "It fell off the table onto a tiled floor, but the screen did not break." },
+      { "speaker": "B", "text": "The screen is fine, but the charging port may have moved. Have you tried a different cable?" },
+      { "speaker": "A", "text": "Two different cables and two chargers. Nothing works." },
+      { "speaker": "B", "text": "Then I am fairly sure it is the port. I can replace it for six hundred thousand dong." },
+      { "speaker": "A", "text": "How long would that take?" },
+      { "speaker": "B", "text": "About two hours if I have the part, and I think I do. Leave it with me until four." },
+      { "speaker": "A", "text": "That works. I will come back after work." }
+    ],
+    "questions": [
+      { "q": "What is the problem with the phone?", "options": ["The screen is broken", "It will not charge", "It has no signal", "It is too slow"], "answer": 1, "explainVi": "“my phone will not charge”." },
+      { "q": "What happened last Tuesday?", "options": ["It got wet", "It fell onto a tiled floor", "It was updated", "Nothing"], "answer": 1, "explainVi": "“It fell off the table onto a tiled floor.”" },
+      { "q": "What has the customer already tried?", "options": ["Nothing", "A new battery", "Two cables and two chargers", "A repair shop"], "answer": 2, "explainVi": "“Two different cables and two chargers.”" },
+      { "q": "When can the customer collect the phone?", "options": ["Immediately", "At four o'clock", "Tomorrow", "In two days"], "answer": 1, "explainVi": "“Leave it with me until four.”" }
+    ]
+  },
+  {
+    "id": "d22",
+    "title": "The morning market",
+    "titleVi": "Chợ buổi sáng",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Every Saturday at six in the morning I walk to the market at the end of our street. It opens before sunrise and closes at eleven." },
+      { "speaker": "N", "text": "The vegetables come from farms about thirty kilometres away, so they are much fresher than in the supermarket." },
+      { "speaker": "N", "text": "I always buy from the same woman, Mrs Lan. She has sold vegetables there for over twenty years and she knows exactly what I need." },
+      { "speaker": "N", "text": "Prices are lower early in the morning, but the best fish is gone by seven, so I buy fish first and vegetables afterwards." },
+      { "speaker": "N", "text": "The whole trip costs me about half of what I would pay in a supermarket, and I always come home with something I did not plan to buy." }
+    ],
+    "questions": [
+      { "q": "When does the writer go to the market?", "options": ["Every day", "Saturday at six in the morning", "Sunday afternoon", "Twice a week"], "answer": 1, "explainVi": "“Every Saturday at six in the morning.”" },
+      { "q": "Why are the vegetables fresher than in the supermarket?", "options": ["They are grown in the city", "They come from farms thirty kilometres away", "They are washed daily", "They are frozen"], "answer": 1, "explainVi": "Rau đến từ các trang trại cách khoảng ba mươi cây số." },
+      { "q": "Why does the writer buy fish first?", "options": ["It is cheaper first", "The best fish is gone by seven", "The fish stall closes early", "Mrs Lan sells fish too"], "answer": 1, "explainVi": "“the best fish is gone by seven”." },
+      { "q": "How does the cost compare with a supermarket?", "options": ["About the same", "About half", "Slightly more", "Twice as much"], "answer": 1, "explainVi": "“about half of what I would pay in a supermarket”." }
+    ]
+  },
+  {
+    "id": "d23",
+    "title": "Making a doctor's appointment",
+    "titleVi": "Đặt lịch khám bác sĩ",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Good afternoon, City Clinic." },
+      { "speaker": "B", "text": "Hello, I would like to make an appointment with Doctor Vinh." },
+      { "speaker": "A", "text": "Is it urgent, or a general check-up?" },
+      { "speaker": "B", "text": "A check-up. I have had a cough for about three weeks." },
+      { "speaker": "A", "text": "Three weeks is quite a long time. Doctor Vinh is fully booked until next Wednesday." },
+      { "speaker": "B", "text": "That is a long wait. Is another doctor available sooner?" },
+      { "speaker": "A", "text": "Doctor Ha has a free slot tomorrow at eleven fifteen." },
+      { "speaker": "B", "text": "I will take that, thank you. Do I need to bring anything?" },
+      { "speaker": "A", "text": "Your health insurance card and a list of any medicine you are taking." },
+      { "speaker": "B", "text": "I take nothing at the moment. Should I arrive early?" },
+      { "speaker": "A", "text": "Ten minutes before is enough. Please wear a mask in the waiting room." }
+    ],
+    "questions": [
+      { "q": "Why is the caller phoning?", "options": ["To cancel an appointment", "To make a check-up appointment", "To ask for test results", "To buy medicine"], "answer": 1, "explainVi": "Anh ấy muốn đặt lịch khám tổng quát vì bị ho." },
+      { "q": "How long has he had the cough?", "options": ["Three days", "One week", "About three weeks", "Two months"], "answer": 2, "explainVi": "“I have had a cough for about three weeks.”" },
+      { "q": "Which appointment does he accept?", "options": ["Doctor Vinh next Wednesday", "Doctor Ha tomorrow at 11:15", "Doctor Ha next week", "None"], "answer": 1, "explainVi": "“Doctor Ha has a free slot tomorrow at eleven fifteen” và anh ấy đồng ý." },
+      { "q": "What must he bring?", "options": ["Cash only", "His insurance card and a medicine list", "A referral letter", "Nothing"], "answer": 1, "explainVi": "“Your health insurance card and a list of any medicine you are taking.”" }
+    ]
+  },
+  {
+    "id": "d24",
+    "title": "Choosing a course",
+    "titleVi": "Chọn khoá học",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "I want to improve my English, but I do not know which course to take." },
+      { "speaker": "B", "text": "What do you find most difficult at the moment?" },
+      { "speaker": "A", "text": "Listening, definitely. I can read quite well but I lose the words when people speak fast." },
+      { "speaker": "B", "text": "Then a general course may be a waste of money. Look for one that focuses on listening and speaking." },
+      { "speaker": "A", "text": "There is an evening class near my office, twice a week." },
+      { "speaker": "B", "text": "Evening classes are good, but two hours a week is not much. What do you do on the other days?" },
+      { "speaker": "A", "text": "Nothing regular. Sometimes I watch films with subtitles." },
+      { "speaker": "B", "text": "Try fifteen minutes every day without subtitles. Little and often is better than one long lesson." },
+      { "speaker": "A", "text": "Fifteen minutes sounds manageable." },
+      { "speaker": "B", "text": "It is. And record yourself speaking once a week, then listen back." },
+      { "speaker": "A", "text": "That sounds strange, but I will try it." }
+    ],
+    "questions": [
+      { "q": "What is A's main difficulty?", "options": ["Reading", "Writing", "Listening", "Grammar"], "answer": 2, "explainVi": "“Listening, definitely.”" },
+      { "q": "What does B say about a general course?", "options": ["It is the best choice", "It may be a waste of money", "It is too expensive", "It is too short"], "answer": 1, "explainVi": "“a general course may be a waste of money”." },
+      { "q": "What daily practice does B suggest?", "options": ["One hour of grammar", "Fifteen minutes without subtitles", "Reading the news", "Two evening classes"], "answer": 1, "explainVi": "“Try fifteen minutes every day without subtitles.”" },
+      { "q": "What else does B recommend?", "options": ["Joining a club", "Recording yourself speaking weekly", "Buying a dictionary", "Travelling abroad"], "answer": 1, "explainVi": "“record yourself speaking once a week, then listen back”." }
+    ]
+  },
+  {
+    "id": "d25",
+    "title": "The delayed train",
+    "titleVi": "Chuyến tàu bị hoãn",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Last Thursday I had to travel to a meeting in another city. My train was supposed to leave at seven and arrive at ten." },
+      { "speaker": "N", "text": "At the station a screen said the train was delayed by forty minutes because of work on the line." },
+      { "speaker": "N", "text": "I called my colleague to warn her, and she moved the meeting from eleven to twelve. That was lucky." },
+      { "speaker": "N", "text": "In the end the delay was over an hour. I ate a sandwich on the platform and read almost half of my book." },
+      { "speaker": "N", "text": "I arrived at twenty past eleven, took a taxi, and walked into the meeting room three minutes before it started. Next time I will take an earlier train." }
+    ],
+    "questions": [
+      { "q": "Why was the train delayed?", "options": ["Bad weather", "Work on the line", "An accident", "Too many passengers"], "answer": 1, "explainVi": "“delayed by forty minutes because of work on the line”." },
+      { "q": "What did the colleague do?", "options": ["Cancelled the meeting", "Moved it from eleven to twelve", "Came to the station", "Started without him"], "answer": 1, "explainVi": "“she moved the meeting from eleven to twelve”." },
+      { "q": "How long was the delay in the end?", "options": ["Forty minutes", "Over an hour", "Twenty minutes", "Three hours"], "answer": 1, "explainVi": "“In the end the delay was over an hour.”" },
+      { "q": "What will the writer do next time?", "options": ["Travel by car", "Take an earlier train", "Cancel the meeting", "Stay overnight"], "answer": 1, "explainVi": "“Next time I will take an earlier train.”" }
+    ]
+  },
+  {
+    "id": "d26",
+    "title": "Borrowing books",
+    "titleVi": "Mượn sách thư viện",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Hello, I would like to join the library." },
+      { "speaker": "B", "text": "Welcome. Do you live or work in this district?" },
+      { "speaker": "A", "text": "I work here, but I live about ten kilometres away." },
+      { "speaker": "B", "text": "That is fine. Working here is enough. May I see your identity card?" },
+      { "speaker": "A", "text": "Here it is. How many books can I borrow at once?" },
+      { "speaker": "B", "text": "Four books for three weeks. You can renew twice online if nobody is waiting." },
+      { "speaker": "A", "text": "What happens if I return them late?" },
+      { "speaker": "B", "text": "Two thousand dong a day per book. But we send a reminder by email two days before." },
+      { "speaker": "A", "text": "Very helpful. Do you have books in English?" },
+      { "speaker": "B", "text": "A small section on the second floor, mostly novels and travel guides." },
+      { "speaker": "A", "text": "That is exactly what I was hoping for." }
+    ],
+    "questions": [
+      { "q": "Why can the man join the library?", "options": ["He lives in the district", "He works in the district", "He is a student", "He knows the librarian"], "answer": 1, "explainVi": "“Working here is enough.”" },
+      { "q": "How many books can he borrow?", "options": ["Two", "Three", "Four", "Six"], "answer": 2, "explainVi": "“Four books for three weeks.”" },
+      { "q": "What is the late fee?", "options": ["Nothing", "Two thousand dong a day per book", "Ten thousand dong per book", "The card is cancelled"], "answer": 1, "explainVi": "“Two thousand dong a day per book.”" },
+      { "q": "What is on the second floor?", "options": ["The children's section", "English novels and travel guides", "The computer room", "The café"], "answer": 1, "explainVi": "“A small section on the second floor, mostly novels and travel guides.”" }
+    ]
+  },
+  {
+    "id": "d27",
+    "title": "A new bicycle lane",
+    "titleVi": "Làn đường xe đạp mới",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Six months ago the city built a bicycle lane along the main road near my house. Many drivers were angry because the road became narrower." },
+      { "speaker": "N", "text": "At first almost nobody used the lane. In the mornings I counted only four or five cyclists." },
+      { "speaker": "N", "text": "Then the city added lights and painted the lane bright green, and a shop began renting bicycles at both ends." },
+      { "speaker": "N", "text": "Now, on a normal weekday morning, more than two hundred people use the lane. The air near the school is noticeably cleaner." },
+      { "speaker": "N", "text": "Some drivers still complain about the traffic, but most people agree that the street is now safer for children." }
+    ],
+    "questions": [
+      { "q": "Why were drivers angry at first?", "options": ["The lane was too narrow", "The road became narrower", "The work took too long", "It was expensive"], "answer": 1, "explainVi": "“Many drivers were angry because the road became narrower.”" },
+      { "q": "How many cyclists used the lane at the beginning?", "options": ["About fifty", "Four or five", "Two hundred", "None at all"], "answer": 1, "explainVi": "“I counted only four or five cyclists.”" },
+      { "q": "What changes did the city make?", "options": ["Widened the road", "Added lights and painted the lane green", "Banned cars", "Built a bridge"], "answer": 1, "explainVi": "Thành phố lắp đèn và sơn làn đường màu xanh sáng." },
+      { "q": "What do most people think now?", "options": ["The lane should be removed", "The street is safer for children", "The lane is too crowded", "Nothing has changed"], "answer": 1, "explainVi": "“most people agree that the street is now safer for children”." }
+    ]
+  },
+  {
+    "id": "d28",
+    "title": "Renting a flat",
+    "titleVi": "Thuê căn hộ",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "Thank you for showing me the flat. It is brighter than I expected." },
+      { "speaker": "B", "text": "The windows face east, so you get the morning sun." },
+      { "speaker": "A", "text": "How much is the rent, and what does it include?" },
+      { "speaker": "B", "text": "Seven million a month, including water and internet. Electricity is separate." },
+      { "speaker": "A", "text": "Is there a deposit?" },
+      { "speaker": "B", "text": "One month's rent. You get it back when you leave, if there is no damage." },
+      { "speaker": "A", "text": "How long is the contract?" },
+      { "speaker": "B", "text": "Normally one year, but I can offer six months at the same price." },
+      { "speaker": "A", "text": "Six months would suit me better. What about the noise from the road?" },
+      { "speaker": "B", "text": "The bedroom is at the back, so it is quiet at night. Come and listen if you like." },
+      { "speaker": "A", "text": "I will. If it is quiet, I would like to take it from the first of next month." }
+    ],
+    "questions": [
+      { "q": "What is included in the rent?", "options": ["Everything", "Water and internet", "Electricity only", "Nothing"], "answer": 1, "explainVi": "“including water and internet. Electricity is separate.”" },
+      { "q": "How much is the deposit?", "options": ["Half a month's rent", "One month's rent", "Two months' rent", "There is none"], "answer": 1, "explainVi": "“One month's rent.”" },
+      { "q": "What contract length does the tenant prefer?", "options": ["One year", "Six months", "Three months", "Two years"], "answer": 1, "explainVi": "“Six months would suit me better.”" },
+      { "q": "Why is the flat quiet at night?", "options": ["The road is closed at night", "The bedroom is at the back", "The windows are new", "It is on the top floor"], "answer": 1, "explainVi": "“The bedroom is at the back, so it is quiet at night.”" }
+    ]
+  },
+  {
+    "id": "d29",
+    "title": "Volunteering at the weekend",
+    "titleVi": "Làm tình nguyện cuối tuần",
+    "type": "dialogue",
+    "lines": [
+      { "speaker": "A", "text": "I heard you clean the beach on Sundays. How did you start?" },
+      { "speaker": "B", "text": "A friend invited me last year. I only went once to be polite, but I stayed." },
+      { "speaker": "A", "text": "What exactly do you do?" },
+      { "speaker": "B", "text": "We meet at seven, collect rubbish for two hours, then sort it into plastic, glass and metal." },
+      { "speaker": "A", "text": "Seven is early for a Sunday." },
+      { "speaker": "B", "text": "It is, but it is too hot after nine, and we finish in time for a late breakfast together." },
+      { "speaker": "A", "text": "How many people usually come?" },
+      { "speaker": "B", "text": "Between fifteen and thirty. More students come during the holidays." },
+      { "speaker": "A", "text": "Do I need to bring anything?" },
+      { "speaker": "B", "text": "Just gloves and a hat. We provide the bags and water." },
+      { "speaker": "A", "text": "Then count me in for this Sunday." }
+    ],
+    "questions": [
+      { "q": "How did B start volunteering?", "options": ["Through work", "A friend invited him", "He read about it online", "The school arranged it"], "answer": 1, "explainVi": "“A friend invited me last year.”" },
+      { "q": "What do the volunteers do after collecting rubbish?", "options": ["Go home", "Sort it into plastic, glass and metal", "Sell it", "Burn it"], "answer": 1, "explainVi": "“then sort it into plastic, glass and metal”." },
+      { "q": "Why do they start at seven?", "options": ["The beach is closed later", "It is too hot after nine", "The bus only runs early", "To avoid tourists"], "answer": 1, "explainVi": "“it is too hot after nine”." },
+      { "q": "What should A bring?", "options": ["Bags and water", "Gloves and a hat", "Nothing", "A camera"], "answer": 1, "explainVi": "“Just gloves and a hat. We provide the bags and water.”" }
+    ]
+  },
+  {
+    "id": "d30",
+    "title": "Working from home",
+    "titleVi": "Làm việc tại nhà",
+    "type": "passage",
+    "lines": [
+      { "speaker": "N", "text": "Since March our company has allowed us to work from home two days a week. I chose Tuesday and Friday." },
+      { "speaker": "N", "text": "At first I thought I would relax more, but in fact I started work earlier and finished later than at the office." },
+      { "speaker": "N", "text": "The biggest problem was that I never left the flat. After three weeks my back hurt and I felt tired all the time." },
+      { "speaker": "N", "text": "So I made two rules: a walk of thirty minutes before lunch, and no laptop after seven in the evening." },
+      { "speaker": "N", "text": "Those two small rules changed everything. I now save two hours of travelling each week and I sleep much better than before." }
+    ],
+    "questions": [
+      { "q": "How many days a week does the writer work from home?", "options": ["One", "Two", "Three", "Five"], "answer": 1, "explainVi": "“work from home two days a week”." },
+      { "q": "What actually happened at first?", "options": ["He relaxed more", "He worked longer hours", "He was often late", "He earned less"], "answer": 1, "explainVi": "“I started work earlier and finished later than at the office.”" },
+      { "q": "What caused his back pain and tiredness?", "options": ["A bad chair", "Never leaving the flat", "Too many meetings", "Poor food"], "answer": 1, "explainVi": "“The biggest problem was that I never left the flat.”" },
+      { "q": "What are his two rules?", "options": ["No coffee and early nights", "A walk before lunch and no laptop after seven", "No meetings and no email", "Work only in the morning"], "answer": 1, "explainVi": "“a walk of thirty minutes before lunch, and no laptop after seven”." }
+    ]
+  }
+]
