@@ -39,8 +39,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
         with:
-          # Tự bật GitHub Pages (source = GitHub Actions) ở lần chạy đầu tiên,
-          # thay vì phải vào Settings → Pages bật tay.
+          # Tự bật Pages nếu token đủ quyền. Token mặc định của Actions thì KHÔNG —
+          # nó báo "Create Pages site failed: Resource not accessible by integration".
+          # Khi đó phải bật tay một lần: Settings → Pages → Source = GitHub Actions
+          # (xem mục "Deploy lên GitHub Pages" trong README). Sau khi đã bật, bước này
+          # chỉ tìm thấy site có sẵn và đi tiếp bình thường.
           enablement: true
       # App là web tĩnh — không cần build, upload thẳng thư mục gốc.
       - uses: actions/upload-pages-artifact@v3

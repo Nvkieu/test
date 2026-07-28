@@ -142,10 +142,32 @@ Muốn xem một ngày cụ thể: mở `?date=2026-08-01`.
 
 Đã có sẵn workflow `.github/workflows/pages.yml` (chạy `check.mjs` trước, đạt mới deploy).
 
-Sau khi push, **bạn cần bật một lần** trong repo:
-**Settings → Pages → Source = GitHub Actions**.
+### ⚠️ Cần bật Pages bằng tay một lần
+
+Vào repo → **Settings → Pages → Build and deployment → Source = GitHub Actions**.
+
+Bước này **bắt buộc phải làm thủ công**, không tự động hoá được: token mặc định của
+GitHub Actions (`GITHUB_TOKEN`) không có quyền *tạo* Pages site lần đầu, kể cả khi
+workflow đã khai báo `permissions: pages: write`. Workflow có đặt `enablement: true`
+để tự bật nếu token đủ quyền, nhưng với token mặc định nó sẽ báo:
+
+```
+Create Pages site failed. Error: Resource not accessible by integration
+```
+
+Đó chính là dấu hiệu bạn chưa bật Pages. Bật xong thì push lại (hoặc bấm **Re-run
+jobs** ở lần chạy hỏng) là deploy chạy được ngay — `enablement: true` khi đó chỉ
+tìm thấy site có sẵn và đi tiếp.
+
+Cách khác nếu muốn hoàn toàn tự động: tạo Personal Access Token có quyền
+`administration: write`, lưu thành repository secret rồi truyền vào
+`actions/configure-pages` qua tham số `token`. Với repo cá nhân thì bật tay một
+lần đơn giản hơn nhiều.
 
 App sẽ chạy tại `https://<user>.github.io/<repo>/`.
+
+> Chưa bật Pages thì job `Deploy` sẽ đỏ ở mỗi lần push, nhưng job kiểm thử
+> (`check`) vẫn chạy và vẫn xanh — app dùng local không ảnh hưởng gì.
 
 ---
 
