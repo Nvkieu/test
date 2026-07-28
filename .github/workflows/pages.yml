@@ -38,6 +38,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          # Tự bật GitHub Pages (source = GitHub Actions) ở lần chạy đầu tiên,
+          # thay vì phải vào Settings → Pages bật tay.
+          enablement: true
       # App là web tĩnh — không cần build, upload thẳng thư mục gốc.
       - uses: actions/upload-pages-artifact@v3
         with:
