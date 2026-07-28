@@ -4,11 +4,41 @@ Web app luyện tiếng Anh hàng ngày trình độ **A2+** cho người Việt
 từ vựng, nghe hiểu, đọc & phát âm. Mỗi ngày app tự bốc một bộ bài mới, chấm điểm và
 nhận xét ngắn bằng tiếng Việt.
 
-Không cần cài đặt, không cần server, không cần tài khoản.
+Là **PWA**: cài được lên màn hình chính của điện thoại và máy tính, mở như app thật,
+và **học được cả khi không có mạng**. Không cần store, không cần tài khoản.
 
 ---
 
-## Chạy thử
+## Cài lên thiết bị
+
+Cần mở app qua **HTTPS** (bản trên GitHub Pages) hoặc **localhost**. Mở bằng địa chỉ
+IP trong mạng LAN (`http://192.168.…`) sẽ không cài được — trình duyệt chỉ cho phép
+service worker chạy trong "secure context".
+
+| Thiết bị | Cách cài |
+|---|---|
+| **Android** (Chrome/Edge) | Mở app → hộp thoại ⚙️ Cài đặt → nút **⬇️ Cài đặt app**. Hoặc menu ⋮ → *Cài đặt ứng dụng*. |
+| **iPhone / iPad** (Safari) | Bấm nút **Chia sẻ** ở thanh dưới → cuộn xuống → **Thêm vào MH chính**. iOS không hỗ trợ nút cài tự động. |
+| **Windows / macOS / Linux** (Chrome/Edge) | Bấm biểu tượng cài đặt ở cuối thanh địa chỉ, hoặc dùng nút trong ⚙️ Cài đặt. |
+
+Sau khi cài: app có icon riêng, mở toàn màn hình không có thanh địa chỉ, và giữ
+nguyên tiến độ. Nhấn giữ icon còn có lối tắt mở thẳng Bài 1 / 2 / 3.
+
+**Dùng trên nhiều thiết bị:** tiến độ (từ đã nhớ, điểm, streak) lưu riêng trên từng
+máy, không tự đồng bộ vì app không có server. Muốn chuyển thì vào ⚙️ Cài đặt →
+**Xuất tiến độ (JSON)** ở máy cũ, rồi **Nhập tiến độ** ở máy mới.
+
+**Offline:** sau lần mở đầu tiên, toàn bộ app và ngân hàng bài học được lưu vào máy,
+nên vào máy bay hay mất mạng vẫn học bình thường. Giọng đọc (TTS) hầu hết máy vẫn
+chạy offline; riêng phần **thu âm chấm phát âm cần mạng** vì Chrome gửi giọng nói
+lên máy chủ để nhận dạng.
+
+Khi có bản mới, app hiện thanh **"Đã có phiên bản mới"** ở dưới màn hình — bấm
+*Tải lại ngay* là xong.
+
+---
+
+## Chạy thử (cho người phát triển)
 
 Cần một web server nhỏ (mở thẳng bằng `file://` sẽ bị trình duyệt chặn `fetch` dữ liệu):
 
@@ -128,13 +158,30 @@ Lưu trong `localStorage` của trình duyệt: từ đã nhớ, điểm từng 
 node scripts/check.mjs
 ```
 
-Script này (chạy cả trong CI trước khi deploy) kiểm tra:
+Script này (chạy cả trong CI trước khi deploy) kiểm tra 102 điểm:
 - 3 file JSON đúng schema, đủ số lượng, không trùng id, mọi câu hỏi có đáp án hợp lệ
 - Logic chấm phát âm: đọc đúng → 100; thiếu từ → đúng từ đó bị đánh dấu, các từ khác
   vẫn xanh (chứng minh alignment hoạt động); `sheep`/`ship` → gần đúng; `cat`/`dog` → sai
 - Logic chọn bài: cùng ngày → cùng bài; 30 ngày liên tiếp dùng hết 300 từ không lặp
+- PWA: manifest hợp lệ, icon tồn tại và không rỗng, **mọi module JS và file dữ liệu
+  đều nằm trong danh sách precache** (thiếu một file là offline trắng trang)
 
 Muốn xem một ngày cụ thể: mở `?date=2026-08-01`.
+Mở thẳng một bài: `?view=ex3`.
+
+### Sinh lại icon
+
+Các file PNG trong `icons/` được sinh từ `icons/icon.svg` và đã commit sẵn. Chỉ khi
+đổi thiết kế mới cần chạy lại:
+
+```bash
+npm i -D playwright && node scripts/make-icons.mjs
+```
+
+### Khi sửa file tĩnh
+
+Nhớ tăng `CACHE_VERSION` trong `sw.js` (`v1` → `v2`…). Không tăng thì máy đã cài
+vẫn dùng bản cũ trong cache.
 
 ---
 
@@ -175,8 +222,12 @@ App sẽ chạy tại `https://<user>.github.io/<repo>/`.
 
 ```
 index.html              khung app + hộp thoại cài đặt
+manifest.webmanifest    khai báo PWA: tên, icon, màu, lối tắt
+sw.js                   service worker: cache toàn bộ app để chạy offline
+icons/                  icon.svg (nguồn) + các bản PNG đã sinh sẵn
 css/style.css           giao diện, chế độ sáng/tối, màu chấm điểm
 js/app.js               điều phối: tải dữ liệu, chọn bài, chuyển tab, tổng kết
+js/pwa.js               đăng ký service worker, nút cài đặt, báo có bản mới
 js/storage.js           localStorage: từ đã nhớ, điểm, streak, export/import
 js/daily.js             RNG tất định theo ngày + thuật toán chọn bài không lặp
 js/speech.js            TTS + STT, phát hiện trình duyệt hỗ trợ
@@ -188,6 +239,7 @@ js/ex1-vocab.js         Bài 1
 js/ex2-listening.js     Bài 2
 js/ex3-pronounce.js     Bài 3
 scripts/check.mjs       validate dữ liệu + unit test
+scripts/make-icons.mjs  sinh PNG từ icon.svg (chỉ dùng khi đổi thiết kế)
 ```
 
 Không có build step, không có dependency — chỉ HTML/CSS/JS thuần với ES modules.

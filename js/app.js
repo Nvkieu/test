@@ -10,6 +10,9 @@ import { renderVocab } from './ex1-vocab.js';
 import { renderListening } from './ex2-listening.js';
 import { renderPronounce } from './ex3-pronounce.js';
 import { hasApiKey, generateWords, generateDialogue, generateSentences } from './ai.js';
+import {
+  initPWA, promptInstall, canInstall, isStandalone, installHelpText,
+} from './pwa.js';
 
 const TODAY = resolveToday();
 
@@ -49,9 +52,17 @@ async function init() {
   refreshHeader();
 
   document.getElementById('view-loading').hidden = true;
-  show('ex1');
+  show(initialView());
 
   loadVoices().then(fillVoiceSelect);
+  initPWA(refreshInstallUI);
+  refreshInstallUI();
+}
+
+/** Cho phép mở thẳng một bài qua ?view=ex2 (dùng cho shortcut của app đã cài). */
+function initialView() {
+  const m = /[?&]view=(ex1|ex2|ex3|summary)/.exec(location.search);
+  return m ? m[1] : 'ex1';
 }
 
 async function fetchJSON(path) {
@@ -321,6 +332,31 @@ function wireSettings() {
     store.resetAll();
     location.reload();
   });
+
+  document.getElementById('btn-install').addEventListener('click', async () => {
+    const accepted = await promptInstall();
+    if (!accepted) toast('Bạn có thể cài lại bất cứ lúc nào trong Cài đặt.');
+    refreshInstallUI();
+  });
+}
+
+/** Cập nhật khu "Cài lên thiết bị" theo trạng thái hiện tại của trình duyệt. */
+function refreshInstallUI() {
+  const status = document.getElementById('install-status');
+  const help = document.getElementById('install-help');
+  const btn = document.getElementById('btn-install');
+  if (!status || !btn) return;
+
+  if (isStandalone()) {
+    status.textContent = '✅ Bạn đang chạy bản đã cài trên thiết bị này.';
+    btn.hidden = true;
+    help.textContent = '';
+    return;
+  }
+
+  status.textContent = 'Cài app để mở từ màn hình chính và học được cả khi không có mạng.';
+  btn.hidden = !canInstall();
+  help.textContent = installHelpText() || '';
 }
 
 function fillVoiceSelect() {

@@ -4,7 +4,7 @@
  *   node scripts/check.mjs
  */
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -241,6 +241,66 @@ section('5. js/daily.js — chọn bài theo ngày');
   ok(resolveToday('?date=2026-03-15') === '2026-03-15', 'tham số ?date= được nhận đúng');
   ok(/^Chủ nhật|^Thứ/.test(formatDateVi('2026-07-27')), 'định dạng ngày tiếng Việt hợp lệ');
 }
+
+/* ---------- 6. PWA ---------- */
+
+section('6. PWA — manifest, icon, service worker');
+
+const manifest = JSON.parse(readFileSync(join(ROOT, 'manifest.webmanifest'), 'utf8'));
+ok(!!manifest.name && !!manifest.short_name, 'manifest có name và short_name');
+ok(manifest.short_name.length <= 12,
+  `short_name đủ ngắn để hiện dưới icon (${manifest.short_name.length} ký tự)`);
+ok(manifest.display === 'standalone', 'display = standalone (mở như app, không có thanh địa chỉ)');
+ok(manifest.start_url === './' && manifest.scope === './',
+  'start_url và scope dùng đường dẫn tương đối (chạy được dưới /test/ của Pages)');
+ok(!!manifest.theme_color && !!manifest.background_color, 'có theme_color và background_color');
+
+const iconSrcs = manifest.icons.map((i) => i.src);
+ok(manifest.icons.some((i) => i.sizes === '192x192' && i.type === 'image/png'), 'có icon PNG 192×192');
+ok(manifest.icons.some((i) => i.sizes === '512x512' && i.type === 'image/png'), 'có icon PNG 512×512');
+ok(manifest.icons.some((i) => i.purpose === 'maskable'), 'có icon maskable cho Android');
+
+const missingIcons = iconSrcs.filter((src) => !existsSync(join(ROOT, src)));
+ok(missingIcons.length === 0, 'mọi icon khai báo trong manifest đều tồn tại', missingIcons.join(', '));
+
+const emptyIcons = iconSrcs.filter((src) => existsSync(join(ROOT, src)) && statSync(join(ROOT, src)).size < 500);
+ok(emptyIcons.length === 0, 'không có file icon rỗng/hỏng', emptyIcons.join(', '));
+
+ok(existsSync(join(ROOT, 'icons', 'apple-touch-icon.png')), 'có apple-touch-icon.png cho iOS');
+
+const shortcutUrls = (manifest.shortcuts || []).map((s) => s.url);
+ok(shortcutUrls.every((u) => /^\.\/\?view=(ex1|ex2|ex3|summary)$/.test(u)),
+  'shortcut trỏ tới các view hợp lệ', shortcutUrls.join(', '));
+
+const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
+ok(html.includes('rel="manifest"'), 'index.html có khai báo manifest');
+ok(html.includes('apple-touch-icon'), 'index.html có apple-touch-icon');
+ok(html.includes('apple-mobile-web-app-capable'), 'index.html có meta cho iOS standalone');
+
+const sw = readFileSync(join(ROOT, 'sw.js'), 'utf8');
+const precached = [...sw.matchAll(/'(\.\/[^']+)'/g)].map((m) => m[1])
+  .filter((p) => p !== './' && !p.includes('index.html') || p === './index.html');
+
+const missingPrecache = [...new Set(precached)]
+  .filter((p) => p !== './')
+  .filter((p) => !existsSync(join(ROOT, p)));
+ok(missingPrecache.length === 0,
+  'mọi file trong danh sách precache của service worker đều tồn tại',
+  missingPrecache.join(', '));
+
+// Mọi file JS mà app thực sự nạp đều phải nằm trong precache, nếu không sẽ
+// trắng trang khi offline.
+const jsFiles = ['app', 'storage', 'daily', 'speech', 'scoring', 'feedback', 'ai', 'ui', 'pwa',
+  'ex1-vocab', 'ex2-listening', 'ex3-pronounce'].map((n) => `./js/${n}.js`);
+const notPrecached = jsFiles.filter((f) => !sw.includes(f));
+ok(notPrecached.length === 0, 'mọi module JS đều được precache', notPrecached.join(', '));
+
+const dataFiles = ['./data/words.json', './data/dialogues.json', './data/sentences.json'];
+ok(dataFiles.every((f) => sw.includes(f)), 'cả 3 file dữ liệu đều được precache');
+
+ok(/url\.origin !== self\.location\.origin/.test(sw),
+  'service worker bỏ qua request khác origin (không cache API key / phản hồi API)');
+ok(/CACHE_VERSION\s*=\s*'v\d+'/.test(sw), 'service worker có đánh số phiên bản cache');
 
 /* ---------- Tổng kết ---------- */
 

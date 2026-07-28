@@ -65,7 +65,9 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 16px;
+  /* padding-top thêm vùng an toàn: khi cài như app trên iPhone có tai thỏ,
+     thanh trạng thái nằm đè lên nội dung nếu không trừ ra. */
+  padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
@@ -88,7 +90,8 @@ body {
 
 /* ---------- Tabs ---------- */
 .tabs {
-  position: sticky; top: 57px; z-index: 19;
+  /* 57px = chiều cao .topbar; cộng thêm vùng an toàn để tab dính đúng dưới nó. */
+  position: sticky; top: calc(57px + env(safe-area-inset-top, 0px)); z-index: 19;
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 6px; padding: 10px 16px;
   background: var(--bg); border-bottom: 1px solid var(--border);
@@ -107,7 +110,10 @@ body {
 .tab-score { font-size: 11px; font-weight: 700; color: var(--good); min-height: 15px; }
 
 /* ---------- Layout ---------- */
-main { max-width: 820px; margin: 0 auto; padding: 16px 16px 64px; }
+main {
+  max-width: 820px; margin: 0 auto;
+  padding: 16px 16px calc(64px + env(safe-area-inset-bottom, 0px));
+}
 .view { display: block; }
 /* Phải đặt sau .view — nếu không `display: block` sẽ đè lên [hidden] của trình duyệt
    và cả ba bài cùng hiện một lúc. */
@@ -283,6 +289,18 @@ main { max-width: 820px; margin: 0 auto; padding: 16px 16px 64px; }
   border-radius: 50%; animation: spin .8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Thanh báo có bản mới (service worker vừa tải xong bản cập nhật) */
+.update-bar {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--accent); border-radius: 999px;
+  padding: 8px 10px 8px 16px; box-shadow: var(--shadow);
+  z-index: 90; font-size: 14px;
+  max-width: calc(100% - 24px);
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
 
 .toast {
   position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
