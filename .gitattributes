@@ -1,0 +1,18 @@
+# Giữ nguyên định dạng file dành cho Windows dù clone trên hệ nào.
+# .bat cần CRLF: khối "if ... (" nhiều dòng có thể chạy sai nếu chỉ có LF.
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+
+# Phần còn lại dùng LF.
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.mjs  text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.yml  text eol=lf
+*.webmanifest text eol=lf
+
+# Ảnh là nhị phân — tuyệt đối không được đụng vào.
+*.png binary
+*.svg text eol=lf

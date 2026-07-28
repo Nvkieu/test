@@ -9,11 +9,45 @@ và **học được cả khi không có mạng**. Không cần store, không c�
 
 ---
 
+## Chạy trên Windows
+
+**Bấm đúp `run-windows.bat`.** Trình duyệt tự mở ra app. Không cần cài Python,
+Node hay bất cứ thứ gì — script dùng PowerShell có sẵn trong mọi bản Windows 10/11.
+
+Muốn biến thành app thật trên máy: khi trình duyệt đã mở, bấm biểu tượng cài đặt ở
+cuối thanh địa chỉ (Chrome/Edge) → app có icon riêng trong Start Menu, mở toàn màn
+hình. **Sau khi cài, không cần chạy lại file .bat nữa** — service worker giữ toàn bộ
+app trong máy nên mở từ Start Menu là chạy, kể cả khi không có mạng.
+
+Để dừng: bấm `Ctrl+C` trong cửa sổ đen, hoặc đóng cửa sổ.
+
+<details>
+<summary>Chi tiết kỹ thuật & xử lý sự cố</summary>
+
+Script chỉ lắng nghe trên `localhost` (không mở ra mạng LAN) nên Windows Firewall
+không hỏi gì. Cổng mặc định 8765; nếu bận thì tự nhảy sang cổng kế tiếp.
+
+- **"Access is denied" khi mở cổng** → chuột phải `run-windows.bat` → *Run as
+  administrator*. Hoặc nếu máy có sẵn Python: `python -m http.server 8765 --bind 127.0.0.1`
+- **Cửa sổ hiện ra rồi tắt ngay** → mở Command Prompt, `cd` tới thư mục dự án rồi
+  gõ `run-windows.bat` để đọc được thông báo lỗi.
+- **Windows chặn file tải từ mạng** → chuột phải file `.bat` → Properties → tick
+  *Unblock* → OK.
+- Đổi cổng: `powershell -ExecutionPolicy Bypass -File scripts\serve.ps1 -Port 9000`
+
+Vì sao phải có máy chủ mà không mở thẳng `index.html`: trình duyệt chặn `fetch` dữ
+liệu bài học và không cho đăng ký service worker khi mở bằng `file://`.
+
+</details>
+
+---
+
 ## Cài lên thiết bị
 
-Cần mở app qua **HTTPS** (bản trên GitHub Pages) hoặc **localhost**. Mở bằng địa chỉ
-IP trong mạng LAN (`http://192.168.…`) sẽ không cài được — trình duyệt chỉ cho phép
-service worker chạy trong "secure context".
+Cần mở app qua **HTTPS** (bản trên GitHub Pages) hoặc **localhost** (bao gồm
+`run-windows.bat` ở trên). Mở bằng địa chỉ IP trong mạng LAN (`http://192.168.…`)
+sẽ không cài được — trình duyệt chỉ cho phép service worker chạy trong
+"secure context".
 
 | Thiết bị | Cách cài |
 |---|---|
@@ -38,7 +72,7 @@ Khi có bản mới, app hiện thanh **"Đã có phiên bản mới"** ở dư�
 
 ---
 
-## Chạy thử (cho người phát triển)
+## Chạy thử (macOS / Linux)
 
 Cần một web server nhỏ (mở thẳng bằng `file://` sẽ bị trình duyệt chặn `fetch` dữ liệu):
 
@@ -52,6 +86,8 @@ Hoặc dùng Node:
 ```bash
 npx --yes serve .
 ```
+
+Trên Windows thì bấm đúp `run-windows.bat` (xem mục ở trên).
 
 **Nên dùng Chrome hoặc Edge** — hai trình duyệt này hỗ trợ đầy đủ cả đọc (TTS) và
 thu âm chấm phát âm (STT). Safari/Firefox vẫn nghe và học bình thường, chỉ thiếu
@@ -222,6 +258,7 @@ App sẽ chạy tại `https://<user>.github.io/<repo>/`.
 
 ```
 index.html              khung app + hộp thoại cài đặt
+run-windows.bat         bấm đúp để chạy trên Windows (không cần cài gì)
 manifest.webmanifest    khai báo PWA: tên, icon, màu, lối tắt
 sw.js                   service worker: cache toàn bộ app để chạy offline
 icons/                  icon.svg (nguồn) + các bản PNG đã sinh sẵn
@@ -239,6 +276,7 @@ js/ex1-vocab.js         Bài 1
 js/ex2-listening.js     Bài 2
 js/ex3-pronounce.js     Bài 3
 scripts/check.mjs       validate dữ liệu + unit test
+scripts/serve.ps1       máy chủ local cho Windows (không cần cài gì)
 scripts/make-icons.mjs  sinh PNG từ icon.svg (chỉ dùng khi đổi thiết kế)
 ```
 

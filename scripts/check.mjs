@@ -4,7 +4,7 @@
  *   node scripts/check.mjs
  */
 
-import { readFileSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -301,6 +301,54 @@ ok(dataFiles.every((f) => sw.includes(f)), 'cả 3 file dữ liệu đều đư�
 ok(/url\.origin !== self\.location\.origin/.test(sw),
   'service worker bỏ qua request khác origin (không cache API key / phản hồi API)');
 ok(/CACHE_VERSION\s*=\s*'v\d+'/.test(sw), 'service worker có đánh số phiên bản cache');
+
+/* ---------- 7. Chạy trên Windows ---------- */
+
+section('7. Windows — run-windows.bat + scripts/serve.ps1');
+
+const batRaw = readFileSync(join(ROOT, 'run-windows.bat'));
+const psRaw = readFileSync(join(ROOT, 'scripts', 'serve.ps1'));
+const bat = batRaw.toString('utf8');
+const ps = psRaw.toString('utf8');
+
+ok(batRaw.includes(Buffer.from('\r\n')), 'run-windows.bat dùng xuống dòng CRLF (cmd.exe cần)');
+ok(psRaw.subarray(0, 3).equals(Buffer.from([0xef, 0xbb, 0xbf])),
+  'serve.ps1 có BOM UTF-8 (PowerShell 5.1 mới đọc đúng tiếng Việt)');
+ok(bat.includes('scripts\\serve.ps1'), 'bat gọi đúng đường dẫn serve.ps1');
+ok(bat.includes('ExecutionPolicy Bypass'),
+  'bat bỏ qua ExecutionPolicy (mặc định Windows chặn chạy .ps1)');
+ok(bat.includes('cd /d "%~dp0"'), 'bat chuyển về thư mục dự án trước khi chạy');
+
+ok(/Prefixes\.Add\("http:\/\/localhost:/.test(ps),
+  'serve.ps1 chỉ lắng nghe localhost (không mở ra mạng LAN, không bị Firewall hỏi)');
+ok(!/http:\/\/\+:|0\.0\.0\.0/.test(ps), 'serve.ps1 không bind ra mọi địa chỉ');
+ok(ps.includes('StartsWith($rootPrefix'),
+  'serve.ps1 chặn truy cập ra ngoài thư mục dự án');
+
+const braces = (s, c) => (s.match(new RegExp('\\' + c, 'g')) || []).length;
+ok(braces(ps, '{') === braces(ps, '}'), 'serve.ps1 cân bằng dấu ngoặc nhọn',
+  `${braces(ps, '{')} mở / ${braces(ps, '}')} đóng`);
+ok(braces(ps, '(') === braces(ps, ')'), 'serve.ps1 cân bằng dấu ngoặc tròn');
+
+// Thiếu MIME type nào là trình duyệt từ chối nạp file đó — nhất là .js
+// (ES module bị chặn nếu sai MIME) và .webmanifest. Chỉ xét đúng những file
+// trình duyệt thật sự tải, tức là danh sách precache của service worker;
+// run-windows.bat hay serve.ps1 không bao giờ được yêu cầu qua HTTP.
+const webExts = new Set(
+  [...new Set(precached)]
+    .filter((p) => p !== './' && p.includes('.'))
+    .map((p) => p.slice(p.lastIndexOf('.')).toLowerCase()),
+);
+
+const uncovered = [...webExts].filter((ext) => !ps.includes(`'${ext}'`));
+ok(uncovered.length === 0,
+  `bảng MIME của serve.ps1 phủ hết ${webExts.size} loại file mà app tải`,
+  'thiếu: ' + uncovered.join(', '));
+
+ok(ps.includes("'.js'") && /\.js'\s*=\s*'text\/javascript/.test(ps),
+  '.js được trả đúng MIME text/javascript (ES module sẽ bị chặn nếu sai)');
+ok(/\.webmanifest'\s*=\s*'application\/manifest\+json/.test(ps),
+  '.webmanifest được trả đúng MIME');
 
 /* ---------- Tổng kết ---------- */
 
