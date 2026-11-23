@@ -3,8 +3,8 @@
  *
  * Zalo cá nhân không có API gửi tin chính thức, nên công cụ không tự bấm "Gửi".
  * Thay vào đó:
- *  - Điện thoại: 2 lần chia sẻ — ① chỉ chữ (Zalo điền sẵn tin nhắn),
- *    ② chỉ file PDF. Mỗi lần: chọn Zalo → chọn sếp → Gửi.
+ *  - Điện thoại: một lần chia sẻ gồm file PDF + tin nhắn
+ *    → chọn Zalo → chọn sếp → Gửi.
  *  - Máy tính: tải PDF, chép tin nhắn vào clipboard, mở zalo.me/<SĐT sếp>
  *    (Zalo PC/Zalo Web mở đúng khung chat) → Ctrl+V, kéo file PDF vào → Gửi.
  */
@@ -71,30 +71,18 @@ export function canSharePhone() {
 }
 
 /**
- * Chia sẻ CHỈ chữ sang app khác. Zalo nhận chữ này làm nội dung tin nhắn,
- * nên tin được điền sẵn sau khi chọn người nhận.
- * @returns {Promise<'shared'|'cancelled'|'failed'>}
+ * Điện thoại: một lần chia sẻ gồm cả file PDF và tin nhắn
+ * → chọn Zalo → chọn sếp → Gửi.
+ * Máy không chia sẻ được file thì chia sẻ riêng tin nhắn và tải PDF về.
+ * @returns {Promise<'shared'|'cancelled'|'text-only'|'failed'>}
  */
-export async function shareText(text) {
+export async function shareReport({ pdfBlob, filename, text }) {
+  const file = new File([pdfBlob], filename, { type: 'application/pdf' });
+  const withFile = canShareFile(file);
   try {
-    await navigator.share({ text });
-    return 'shared';
-  } catch (err) {
-    return err?.name === 'AbortError' ? 'cancelled' : 'failed';
-  }
-}
-
-/**
- * Chia sẻ CHỈ file PDF. Không gửi kèm chữ vì một số bản Zalo bỏ mất chữ
- * khi nhận chung với file — chữ đã được gửi ở bước riêng.
- * @returns {Promise<'shared'|'cancelled'|'unsupported'|'failed'>}
- */
-export async function shareFile(blob, filename) {
-  const file = new File([blob], filename, { type: 'application/pdf' });
-  if (!canShareFile(file)) return 'unsupported';
-  try {
-    await navigator.share({ files: [file], title: filename });
-    return 'shared';
+    await navigator.share(withFile ? { files: [file], text, title: filename } : { text });
+    if (!withFile) downloadBlob(pdfBlob, filename);
+    return withFile ? 'shared' : 'text-only';
   } catch (err) {
     return err?.name === 'AbortError' ? 'cancelled' : 'failed';
   }

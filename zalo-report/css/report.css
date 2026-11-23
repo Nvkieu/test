@@ -158,12 +158,6 @@ details textarea { font-family: ui-monospace, SFMono-Regular, Consolas, monospac
 p.warn { font-size: .85rem; margin: 6px 0 0; }
 .desktop-steps { margin: 14px 0 0; padding: 12px 12px 12px 32px; background: var(--surface-2); border-radius: 10px; }
 .desktop-steps li + li { margin-top: 4px; }
-.mobile-steps { margin-top: 14px; padding: 14px; background: var(--surface-2); border-radius: 10px; display: grid; gap: 8px; }
-.mobile-steps p { margin: 0; }
-.step-btn { width: 100%; display: flex; justify-content: center; gap: 8px; }
-.step-btn .tick { display: none; }
-.step-btn.done { background: var(--ok); border-color: var(--ok); }
-.step-btn.done .tick { display: inline; }
 kbd { border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font-size: .85em; }
 
 .empty { color: var(--muted); }
