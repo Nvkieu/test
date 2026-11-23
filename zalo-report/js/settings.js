@@ -28,7 +28,7 @@ export function defaultSettings() {
     template: DEFAULT_TEMPLATE,
     unit: 'trieu',
     customAliases: {}, // { tong_tien: ['Tiền và tương đương tiền'] }
-    migrations: ['amis-mobile-link'], // template mặc định đã có sẵn các dòng mới
+    amisLine: true, // kèm link xem số liệu trên điện thoại (AMIS) vào tin nhắn
   };
 }
 
@@ -37,36 +37,10 @@ export function loadSettings() {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return base;
-    const parsed = JSON.parse(raw);
-    // Cài đặt lưu từ bản cũ chưa có "migrations" → coi như chưa cập nhật gì.
-    const saved = { ...base, ...parsed, migrations: parsed.migrations || [] };
-    if (migrateSettings(saved)) saveSettings(saved);
-    return saved;
+    return { ...base, ...JSON.parse(raw) };
   } catch {
     return base;
   }
-}
-
-/** Dòng link xem số liệu trên điện thoại (AMIS) thêm vào template từ bản 2026-11. */
-export const AMIS_MOBILE_LINE = '📱 Xem số liệu trực tiếp trên điện thoại (AMIS): {{link_xem_mobile}}';
-
-/**
- * Cập nhật template đã lưu từ bản cũ — mỗi thay đổi chỉ áp dụng một lần,
- * nên nếu sau đó bạn tự xoá dòng đi thì nó không bị thêm lại.
- * @returns {boolean} có thay đổi hay không
- */
-export function migrateSettings(settings) {
-  const done = new Set(settings.migrations || []);
-  let changed = false;
-  if (!done.has('amis-mobile-link')) {
-    if (typeof settings.template === 'string' && !settings.template.includes('{{link_xem_mobile}}')) {
-      settings.template = settings.template.replace(/\s+$/, '') + '\n' + AMIS_MOBILE_LINE;
-    }
-    done.add('amis-mobile-link');
-    changed = true;
-  }
-  settings.migrations = [...done];
-  return changed;
 }
 
 export function saveSettings(settings) {
@@ -123,7 +97,7 @@ export function clearLastReport() {
 
 /* ---------- Mang cài đặt sang máy khác qua link ---------- */
 
-const SHARE_FIELDS = ['company', 'bossTitle', 'bossPhone', 'guideUrl', 'template', 'unit', 'customAliases'];
+const SHARE_FIELDS = ['company', 'bossTitle', 'bossPhone', 'guideUrl', 'template', 'unit', 'customAliases', 'amisLine'];
 
 function toBase64Url(str) {
   const bytes = new TextEncoder().encode(str);

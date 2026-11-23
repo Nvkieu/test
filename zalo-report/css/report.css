@@ -152,6 +152,8 @@ details textarea { font-family: ui-monospace, SFMono-Regular, Consolas, monospac
 .btn.ghost:hover:not(:disabled) { background: var(--surface-2); }
 .link { color: var(--accent); background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-decoration: underline; }
 
+.check { display: flex; gap: 8px; align-items: center; margin-top: 8px; font-size: .9rem; cursor: pointer; }
+.check input { width: auto; margin: 0; }
 .hint { color: var(--muted); font-size: .85rem; margin: 6px 0 0; }
 .status { margin: 12px 0 0; font-size: .9rem; }
 .warn { color: var(--warn); }

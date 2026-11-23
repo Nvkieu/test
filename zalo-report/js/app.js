@@ -4,7 +4,7 @@
 
 import { FIELDS, emptyReport, fillDerived, formatVN, parseVN, templateVars } from './metrics.js';
 import { extractReport, UNITS, parsePeriod } from './excel-import.js';
-import { renderTemplate, VARIABLE_HELP, DEFAULT_TEMPLATE } from './template.js';
+import { renderTemplate, VARIABLE_HELP, DEFAULT_TEMPLATE, withAmisLine } from './template.js';
 import { renderReport, exportPdf, pdfFilename } from './pdf.js';
 import {
   loadSettings, saveSettings, normalizePhone, defaultGuideUrl,
@@ -227,7 +227,7 @@ function currentMessage() {
     guideUrl: settings.guideUrl,
     today: todayVN(),
   });
-  return renderTemplate(settings.template, vars);
+  return renderTemplate(withAmisLine(settings.template, settings.amisLine !== false), vars);
 }
 
 function setupMessage() {
@@ -247,6 +247,14 @@ function setupMessage() {
   });
   bind('#guide-url', 'guideUrl');
   bind('#template', 'template');
+
+  const amis = $('#amis-line');
+  amis.checked = settings.amisLine !== false;
+  amis.addEventListener('change', () => {
+    settings.amisLine = amis.checked;
+    saveSettings(settings);
+    scheduleRender();
+  });
 
   $('#reset-template').addEventListener('click', () => {
     settings.template = DEFAULT_TEMPLATE;

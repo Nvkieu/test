@@ -2,6 +2,9 @@
  * Template tin nhắn Zalo: thay {{bien}} bằng số liệu.
  */
 
+/** Dòng link xem số liệu trên điện thoại (AMIS). */
+export const AMIS_MOBILE_LINE = '📱 Xem số liệu trực tiếp trên điện thoại (AMIS): {{link_xem_mobile}}';
+
 export const DEFAULT_TEMPLATE = `Dạ em gửi {{xung_ho}} báo cáo tài chính {{ky_bao_cao}} – {{ten_cong_ty}} (ĐVT: triệu đồng):
 
 💰 Doanh thu: {{doanh_thu}} | Chi phí: {{chi_phi}} | Lợi nhuận: {{loi_nhuan}}
@@ -16,7 +19,7 @@ Nhận xét nhanh:
 
 Chi tiết trong file PDF đính kèm.
 Hướng dẫn đọc báo cáo: {{link_huong_dan}}
-📱 Xem số liệu trực tiếp trên điện thoại (AMIS): {{link_xem_mobile}}`;
+${AMIS_MOBILE_LINE}`;
 
 /** Danh sách biến có thể dùng, để hiện gợi ý trên giao diện. */
 export const VARIABLE_HELP = [
@@ -72,4 +75,14 @@ export function renderTemplate(template, vars) {
   // Dòng trống liên tiếp (do biến rỗng) gộp lại cho gọn.
   text = text.replace(/\n{3,}/g, '\n\n').trim();
   return { text, unknown: [...unknown], empty: [...empty] };
+}
+
+/**
+ * Ô tick "Kèm link xem số liệu trên điện thoại (AMIS)": khi bật mà template
+ * chưa có {{link_xem_mobile}} thì thêm dòng đó vào cuối — không sửa template đã lưu.
+ */
+export function withAmisLine(template, on) {
+  const t = String(template ?? '');
+  if (!on || /\{\{\s*link_xem_mobile\s*\}\}/i.test(t)) return t;
+  return t.replace(/\s+$/, '') + '\n' + AMIS_MOBILE_LINE;
 }

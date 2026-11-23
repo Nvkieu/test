@@ -72,6 +72,7 @@
         <details>
           <summary>Sửa template tin nhắn</summary>
           <textarea id="template" rows="14" spellcheck="false"></textarea>
+          <p class="hint">Dòng “📱 Xem số liệu trực tiếp trên điện thoại (AMIS)” được tự thêm vào cuối tin khi ô tick bên dưới đang bật — không cần gõ vào template.</p>
           <p class="hint">Bấm vào biến để chèn:</p>
           <div id="vars" class="chips"></div>
           <button type="button" class="btn ghost" id="reset-template">Khôi phục template mặc định</button>
@@ -79,6 +80,8 @@
         <label class="field"><span>Nội dung sẽ gửi (sửa trực tiếp được)</span>
           <textarea id="message" rows="16"></textarea>
         </label>
+        <label class="check"><input type="checkbox" id="amis-line" checked>
+          Kèm link xem số liệu trực tiếp trên điện thoại (AMIS)</label>
         <p class="warn" id="message-warn" hidden></p>
       </section>
 

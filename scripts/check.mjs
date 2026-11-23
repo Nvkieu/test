@@ -423,14 +423,14 @@ section('8. zalo-report — đọc số, nhận diện Excel, template tin nhắ
     'link cài đặt mang đủ SĐT, xưng hô, template (cả tiếng Việt và emoji)');
   ok(settingsFromHash('#khac') === null && settingsFromHash('#cfg=!!!') === null, 'bỏ qua hash không phải cài đặt');
 
-  const { migrateSettings, AMIS_MOBILE_LINE } = await import('../zalo-report/js/settings.js');
-  const old = { template: 'Dạ em gửi {{xung_ho}}\nHướng dẫn: {{link_huong_dan}}\n' };
-  ok(migrateSettings(old) && old.template.endsWith(AMIS_MOBILE_LINE) && old.migrations.includes('amis-mobile-link'),
-    'template đã lưu từ bản cũ được thêm dòng link xem trên điện thoại');
-  old.template = 'Tôi đã xoá dòng đó';
-  ok(!migrateSettings(old) && old.template === 'Tôi đã xoá dòng đó', 'chỉ thêm một lần — xoá đi thì không bị thêm lại');
-  const fresh = defaultSettings();
-  ok(!migrateSettings(fresh) && fresh.template.split('{{link_xem_mobile}}').length === 2, 'template mặc định không bị thêm trùng');
+  const { withAmisLine, AMIS_MOBILE_LINE } = await import('../zalo-report/js/template.js');
+  const oldTpl = 'Dạ em gửi {{xung_ho}}\nHướng dẫn: {{link_huong_dan}}\n';
+  const withLine = renderTemplate(withAmisLine(oldTpl, true), vars).text;
+  ok(withLine.split('#amis-mobile').length === 2 && withLine.endsWith('https://example.com/hd#amis-mobile'),
+    'template cũ + ô tick bật → tin có dòng AMIS đúng một lần');
+  ok(withAmisLine(DEFAULT_TEMPLATE, true) === DEFAULT_TEMPLATE && DEFAULT_TEMPLATE.includes(AMIS_MOBILE_LINE),
+    'template mặc định đã có dòng AMIS, không bị thêm trùng');
+  ok(withAmisLine(oldTpl, false) === oldTpl, 'bỏ tick → không tự thêm dòng AMIS');
 
   ok(sw.includes('/zalo-report/'), 'service worker của app tiếng Anh bỏ qua /zalo-report/');
 }
