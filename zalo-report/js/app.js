@@ -7,7 +7,7 @@ import { extractReport, UNITS, parsePeriod } from './excel-import.js';
 import { renderTemplate, VARIABLE_HELP, DEFAULT_TEMPLATE } from './template.js';
 import { renderReport, exportPdf, pdfFilename } from './pdf.js';
 import { loadSettings, saveSettings, normalizePhone, defaultGuideUrl } from './settings.js';
-import { sendToZalo, copyText, downloadBlob, isMobile, zaloChatUrl } from './zalo-share.js';
+import { sendDesktop, shareText, shareFile, canSharePhone, copyText, downloadBlob, zaloChatUrl } from './zalo-share.js';
 import { SAMPLE_SHEETS } from './sample-data.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -294,7 +294,11 @@ function render() {
   $('#message-warn').hidden = !warn.length;
 
   const phone = normalizePhone(settings.bossPhone);
-  $('#send-target').textContent = phone ? `Mở chat Zalo với ${phone}` : 'Chưa có SĐT sếp — sẽ mở Zalo Web để bạn tự chọn người nhận';
+  const phoneMode = canSharePhone();
+  $('#send-target').textContent = phoneMode
+    ? 'Trên điện thoại: tin nhắn và PDF được chuyển sang Zalo, bạn chọn sếp trong Zalo.'
+    : phone ? `Mở chat Zalo với ${phone}` : 'Chưa có SĐT sếp — sẽ mở Zalo Web để bạn tự chọn người nhận';
+  $('#desktop-hint').hidden = phoneMode;
 
   if (hasData) {
     renderReport($('#paper'), report, { company: settings.company || report.company, today: todayVN() });
@@ -361,13 +365,18 @@ function setBusy(btn, busy, text) {
 function setupSend() {
   $('#send').addEventListener('click', async (e) => {
     const btn = e.currentTarget;
-    const ready = pdf.blob && pdf.key === stateKey();
-    if (!ready && isMobile()) {
-      // Trên điện thoại phải mở bảng chia sẻ ngay trong cú bấm, nên tạo PDF trước.
+    const text = $('#message').value;
+
+    if (canSharePhone()) {
+      // Điện thoại: mỗi lần mở bảng chia sẻ phải gắn với một cú bấm riêng,
+      // nên tạo PDF trước rồi hiện 2 nút: ① gửi tin (Zalo điền sẵn), ② gửi PDF.
       setBusy(btn, true, 'Đang tạo PDF…');
       try {
         await ensurePdf();
-        toast('PDF đã sẵn sàng — bấm "Gửi qua Zalo" lần nữa.');
+        copyText(text); // dự phòng: nếu cần dán tay
+        for (const id of ['#share-text', '#share-pdf']) $(id).classList.remove('done');
+        $('#mobile-steps').hidden = false;
+        $('#mobile-steps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } catch (err) {
         toast(err.message, 'error');
       } finally {
@@ -379,25 +388,57 @@ function setupSend() {
     setBusy(btn, true, 'Đang chuẩn bị…');
     try {
       const blob = await ensurePdf();
-      const text = $('#message').value;
-      const result = await sendToZalo({
+      const copied = await sendDesktop({
         pdfBlob: blob,
         filename: pdfFilename(report),
         text,
         phone: normalizePhone(settings.bossPhone),
       });
-      if (result === 'desktop') {
-        $('#desktop-steps').hidden = false;
-        $('#desktop-steps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        toast('Đã chép tin nhắn và tải PDF. Dán vào Zalo rồi kéo file vào.', 'ok');
-      } else if (result === 'shared') {
-        toast('Đã chuyển sang Zalo.', 'ok');
-      }
+      $('#desktop-steps').hidden = false;
+      $('#desktop-steps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      toast(copied ? 'Đã chép tin nhắn và tải PDF. Trong Zalo: Ctrl+V rồi kéo file vào.' : 'Đã tải PDF. Hãy chép tin nhắn ở bước 3 rồi dán vào Zalo.', copied ? 'ok' : 'error');
     } catch (err) {
       console.error(err);
       toast(err.message || 'Không gửi được.', 'error');
     } finally {
       setBusy(btn, false);
+    }
+  });
+
+  $('#share-text').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const result = await shareText($('#message').value);
+    if (result === 'shared') {
+      btn.classList.add('done');
+      toast('Đã gửi tin sang Zalo. Tiếp theo: ② Gửi file PDF.', 'ok');
+    } else if (result === 'failed') {
+      toast('Không mở được bảng chia sẻ. Tin đã được chép sẵn — mở Zalo và dán vào.', 'error');
+    }
+  });
+
+  $('#share-pdf').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const filename = pdfFilename(report);
+    if (!pdf.blob || pdf.key !== stateKey()) {
+      // Số liệu vừa đổi: tạo lại PDF, rồi bấm lần nữa để mở bảng chia sẻ.
+      setBusy(btn, true, 'Đang tạo PDF…');
+      try {
+        await ensurePdf();
+        toast('PDF đã cập nhật — bấm "② Gửi file PDF" lần nữa.');
+      } catch (err) {
+        toast(err.message, 'error');
+      } finally {
+        setBusy(btn, false);
+      }
+      return;
+    }
+    const result = await shareFile(pdf.blob, filename);
+    if (result === 'shared') {
+      btn.classList.add('done');
+      toast('Đã gửi PDF sang Zalo.', 'ok');
+    } else if (result === 'unsupported' || result === 'failed') {
+      downloadBlob(pdf.blob, filename);
+      toast('Trình duyệt này không chia sẻ được file — PDF đã tải về, hãy đính kèm trong Zalo.', 'error');
     }
   });
 

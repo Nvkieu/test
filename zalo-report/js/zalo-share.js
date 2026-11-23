@@ -3,8 +3,8 @@
  *
  * Zalo cá nhân không có API gửi tin chính thức, nên công cụ không tự bấm "Gửi".
  * Thay vào đó:
- *  - Điện thoại: mở bảng chia sẻ của hệ điều hành với file PDF + nội dung tin
- *    → chọn Zalo → chọn sếp → Gửi.
+ *  - Điện thoại: 2 lần chia sẻ — ① chỉ chữ (Zalo điền sẵn tin nhắn),
+ *    ② chỉ file PDF. Mỗi lần: chọn Zalo → chọn sếp → Gửi.
  *  - Máy tính: tải PDF, chép tin nhắn vào clipboard, mở zalo.me/<SĐT sếp>
  *    (Zalo PC/Zalo Web mở đúng khung chat) → Ctrl+V, kéo file PDF vào → Gửi.
  */
@@ -65,27 +65,49 @@ export function downloadBlob(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
+/** Điện thoại có bảng chia sẻ của hệ điều hành (chọn được Zalo) không? */
+export function canSharePhone() {
+  return isMobile() && typeof navigator.share === 'function';
+}
+
 /**
- * @param {{ pdfBlob: Blob, filename: string, text: string, phone: string }} p
- * @returns {Promise<'shared'|'cancelled'|'desktop'>}
+ * Chia sẻ CHỈ chữ sang app khác. Zalo nhận chữ này làm nội dung tin nhắn,
+ * nên tin được điền sẵn sau khi chọn người nhận.
+ * @returns {Promise<'shared'|'cancelled'|'failed'>}
  */
-export async function sendToZalo({ pdfBlob, filename, text, phone }) {
-  const file = new File([pdfBlob], filename, { type: 'application/pdf' });
-
-  if (canShareFile(file)) {
-    // Chép sẵn tin nhắn: một số app chỉ nhận file khi chia sẻ kèm file.
-    await copyText(text);
-    try {
-      await navigator.share({ files: [file], text, title: filename });
-      return 'shared';
-    } catch (err) {
-      if (err?.name === 'AbortError') return 'cancelled';
-      // Lỗi khác → rơi xuống cách làm trên máy tính.
-    }
+export async function shareText(text) {
+  try {
+    await navigator.share({ text });
+    return 'shared';
+  } catch (err) {
+    return err?.name === 'AbortError' ? 'cancelled' : 'failed';
   }
+}
 
-  await copyText(text);
+/**
+ * Chia sẻ CHỈ file PDF. Không gửi kèm chữ vì một số bản Zalo bỏ mất chữ
+ * khi nhận chung với file — chữ đã được gửi ở bước riêng.
+ * @returns {Promise<'shared'|'cancelled'|'unsupported'|'failed'>}
+ */
+export async function shareFile(blob, filename) {
+  const file = new File([blob], filename, { type: 'application/pdf' });
+  if (!canShareFile(file)) return 'unsupported';
+  try {
+    await navigator.share({ files: [file], title: filename });
+    return 'shared';
+  } catch (err) {
+    return err?.name === 'AbortError' ? 'cancelled' : 'failed';
+  }
+}
+
+/**
+ * Máy tính: Zalo PC/Web không cho trang web điền sẵn tin, nên chép tin vào
+ * clipboard, tải PDF về và mở khung chat của sếp.
+ * @param {{ pdfBlob: Blob, filename: string, text: string, phone: string }} p
+ */
+export async function sendDesktop({ pdfBlob, filename, text, phone }) {
+  const copied = await copyText(text);
   downloadBlob(pdfBlob, filename);
   window.open(zaloChatUrl(phone), '_blank', 'noopener');
-  return 'desktop';
+  return copied;
 }

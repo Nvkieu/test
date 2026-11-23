@@ -87,14 +87,20 @@
           <button type="button" class="btn ghost" id="only-copy">Chỉ chép tin nhắn</button>
           <button type="button" class="btn ghost" id="only-pdf" disabled>Chỉ tải PDF</button>
         </div>
+        <div class="mobile-steps" id="mobile-steps" hidden>
+          <p>Gửi 2 lần, mỗi lần chọn <b>Zalo</b> → chọn sếp:</p>
+          <button type="button" class="btn primary step-btn" id="share-text">① Gửi tin nhắn <span class="tick">✓</span></button>
+          <p class="hint">Zalo mở ra với nội dung tin nhắn đã điền sẵn — chỉ cần bấm Gửi.</p>
+          <button type="button" class="btn primary step-btn" id="share-pdf">② Gửi file PDF <span class="tick">✓</span></button>
+        </div>
         <ol class="desktop-steps" id="desktop-steps" hidden>
           <li>Tin nhắn đã được chép và file <b id="pdf-name"></b> đã tải về máy.</li>
           <li>Trong khung chat Zalo vừa mở: bấm vào ô soạn tin, nhấn <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
           <li>Kéo file PDF từ thanh tải xuống vào khung chat, rồi bấm <b>Gửi</b>.
             <button type="button" class="link" id="open-zalo">Mở lại Zalo</button></li>
         </ol>
-        <p class="hint">Trên điện thoại: bấm Gửi → chọn Zalo → chọn sếp → Gửi. Nếu tin nhắn không tự hiện,
-          giữ ô soạn tin và chọn Dán (nội dung đã được chép sẵn).</p>
+        <p class="hint" id="desktop-hint">Zalo trên máy tính không cho điền sẵn tin nhắn, nên cần một lần Ctrl+V.
+          Muốn tin <b>tự điền sẵn</b>, hãy mở công cụ này trên điện thoại.</p>
       </section>
     </div>
 
