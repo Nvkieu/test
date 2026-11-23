@@ -6,7 +6,10 @@ import { FIELDS, emptyReport, fillDerived, formatVN, parseVN, templateVars } fro
 import { extractReport, UNITS, parsePeriod } from './excel-import.js';
 import { renderTemplate, VARIABLE_HELP, DEFAULT_TEMPLATE } from './template.js';
 import { renderReport, exportPdf, pdfFilename } from './pdf.js';
-import { loadSettings, saveSettings, normalizePhone, defaultGuideUrl } from './settings.js';
+import {
+  loadSettings, saveSettings, normalizePhone, defaultGuideUrl,
+  saveLastReport, loadLastReport, settingsLink, settingsFromHash,
+} from './settings.js';
 import { sendDesktop, shareText, shareFile, canSharePhone, copyText, downloadBlob, zaloChatUrl } from './zalo-share.js';
 import { SAMPLE_SHEETS } from './sample-data.js';
 
@@ -42,7 +45,7 @@ function readWorkbook(arrayBuffer) {
   }));
 }
 
-function loadSheets(sheets, name) {
+function loadSheets(sheets, name, { quiet = false } = {}) {
   const { report: r, found, derived } = extractReport(sheets, {
     customAliases: settings.customAliases,
     unit: settings.unit,
@@ -68,7 +71,7 @@ function loadSheets(sheets, name) {
 
   buildForm();
   scheduleRender();
-  $('#step-2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!quiet) $('#step-2').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 let lastSheets = null;
@@ -280,6 +283,7 @@ function scheduleRender() {
 
 function render() {
   const hasData = FIELDS.some((f) => report.values[f.key] !== null);
+  if (hasData && sourceName !== 'dữ liệu mẫu') saveLastReport(report, sourceName);
   $('#preview-empty').hidden = hasData;
   $('#paper-wrap').hidden = !hasData;
 
@@ -368,20 +372,20 @@ function setupSend() {
     const text = $('#message').value;
 
     if (canSharePhone()) {
-      // Điện thoại: mỗi lần mở bảng chia sẻ phải gắn với một cú bấm riêng,
-      // nên tạo PDF trước rồi hiện 2 nút: ① gửi tin (Zalo điền sẵn), ② gửi PDF.
-      setBusy(btn, true, 'Đang tạo PDF…');
-      try {
-        await ensurePdf();
-        copyText(text); // dự phòng: nếu cần dán tay
-        for (const id of ['#share-text', '#share-pdf']) $(id).classList.remove('done');
-        $('#mobile-steps').hidden = false;
-        $('#mobile-steps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } catch (err) {
-        toast(err.message, 'error');
-      } finally {
-        setBusy(btn, false);
+      // Điện thoại: mở Zalo ngay với tin nhắn theo template (Zalo điền sẵn),
+      // rồi hiện nút ② để gửi tiếp file PDF.
+      for (const id of ['#share-text', '#share-pdf']) $(id).classList.remove('done');
+      $('#mobile-steps').hidden = false;
+      ensurePdf().catch((err) => toast(err.message, 'error')); // tạo PDF song song
+      const result = await shareText(text);
+      if (result === 'shared') {
+        $('#share-text').classList.add('done');
+        toast('Đã gửi tin sang Zalo. Tiếp theo: ② Gửi file PDF.', 'ok');
+      } else if (result === 'failed') {
+        copyText(text);
+        toast('Không mở được bảng chia sẻ. Tin đã được chép — mở Zalo và dán vào.', 'error');
       }
+      $('#mobile-steps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       return;
     }
 
@@ -466,9 +470,52 @@ function setupSend() {
 
 /* ---------- Khởi động ---------- */
 
+function setupSettingsLink() {
+  $('#copy-settings-link').addEventListener('click', async () => {
+    const link = settingsLink(settings, location.href.split('#')[0]);
+    const ok = await copyText(link);
+    toast(ok ? 'Đã chép link. Gửi link này sang điện thoại (vd: Zalo "Cloud của tôi") rồi mở là có sẵn cài đặt.' : link, ok ? 'ok' : 'info');
+  });
+}
+
+/** Nhận cài đặt từ link "#cfg=…" (mở từ máy khác), lưu lại rồi xoá khỏi thanh địa chỉ. */
+function applySettingsFromLink() {
+  const incoming = settingsFromHash(location.hash);
+  if (!incoming) return false;
+  Object.assign(settings, incoming);
+  saveSettings(settings);
+  try {
+    history.replaceState(null, '', location.pathname + location.search);
+  } catch {
+    /* bỏ qua */
+  }
+  return true;
+}
+
+/** Mở trang là có số liệu: lần trước đã dùng gì thì hiện lại, chưa có thì dùng dữ liệu mẫu. */
+function restoreData() {
+  const last = loadLastReport();
+  const status = $('#import-status');
+  if (last) {
+    report = last.report;
+    sourceName = last.sourceName || '';
+    const when = new Date(last.savedAt).toLocaleString('vi-VN');
+    status.innerHTML = `Đang dùng số liệu lần trước (<b>${escapeHtml(sourceName || 'nhập tay')}</b>, lưu lúc ${when}). Kéo file mới vào để cập nhật.`;
+    status.hidden = false;
+    buildForm();
+  } else {
+    loadSheets(SAMPLE_SHEETS, 'dữ liệu mẫu', { quiet: true });
+    status.innerHTML += ' <span class="warn">Đây là dữ liệu mẫu — kéo file Excel thật vào để thay.</span>';
+  }
+}
+
+const fromLink = applySettingsFromLink();
 setupImport();
 setupForm();
 setupMessage();
 setupSend();
+setupSettingsLink();
 buildForm();
+restoreData();
 render();
+if (fromLink) toast('Đã nhận cài đặt từ link: SĐT sếp, xưng hô, template.', 'ok');

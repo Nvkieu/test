@@ -413,6 +413,14 @@ section('8. zalo-report — đọc số, nhận diện Excel, template tin nhắ
   ok(normalizePhone('+84 912 345 678') === '0912345678' && normalizePhone('0912.345.678') === '0912345678' && normalizePhone('123') === '',
     'chuẩn hoá SĐT cho link zalo.me');
 
+  const { settingsLink, settingsFromHash, defaultSettings } = await import('../zalo-report/js/settings.js');
+  const cfg = { ...defaultSettings(), bossPhone: '0912345678', bossTitle: 'anh Hùng', template: 'Dạ em gửi {{xung_ho}} ✅' };
+  const link = settingsLink(cfg, 'https://nvkieu.github.io/test/zalo-report/');
+  const back = settingsFromHash(new URL(link).hash);
+  ok(back?.bossPhone === '0912345678' && back.bossTitle === 'anh Hùng' && back.template === cfg.template,
+    'link cài đặt mang đủ SĐT, xưng hô, template (cả tiếng Việt và emoji)');
+  ok(settingsFromHash('#khac') === null && settingsFromHash('#cfg=!!!') === null, 'bỏ qua hash không phải cài đặt');
+
   ok(sw.includes('/zalo-report/'), 'service worker của app tiếng Anh bỏ qua /zalo-report/');
 }
 

@@ -21,7 +21,7 @@ export function defaultGuideUrl(loc = globalThis.location) {
 
 export function defaultSettings() {
   return {
-    company: '',
+    company: 'Công ty TNHH Vật liệu xây dựng',
     bossTitle: 'anh/chị',
     bossPhone: '',
     guideUrl: defaultGuideUrl(),
@@ -60,4 +60,78 @@ export function normalizePhone(input) {
   if (s.startsWith('+84')) s = '0' + s.slice(3);
   else if (s.startsWith('84') && s.length === 11) s = '0' + s.slice(2);
   return /^0\d{9}$/.test(s) ? s : '';
+}
+
+/* ---------- Số liệu lần trước ---------- */
+
+const LAST_KEY = 'zalo-report:last:v1';
+
+/** Lưu số liệu đang xem để lần sau mở trang là có sẵn. */
+export function saveLastReport(report, sourceName) {
+  try {
+    localStorage.setItem(LAST_KEY, JSON.stringify({ report, sourceName, savedAt: Date.now() }));
+  } catch {
+    /* hết chỗ hoặc bị chặn — bỏ qua */
+  }
+}
+
+/** @returns {{report: object, sourceName: string, savedAt: number} | null} */
+export function loadLastReport() {
+  try {
+    const raw = localStorage.getItem(LAST_KEY);
+    const data = raw ? JSON.parse(raw) : null;
+    return data?.report?.values ? data : null;
+  } catch {
+    return null;
+  }
+}
+
+export function clearLastReport() {
+  try {
+    localStorage.removeItem(LAST_KEY);
+  } catch {
+    /* bỏ qua */
+  }
+}
+
+/* ---------- Mang cài đặt sang máy khác qua link ---------- */
+
+const SHARE_FIELDS = ['company', 'bossTitle', 'bossPhone', 'guideUrl', 'template', 'unit', 'customAliases'];
+
+function toBase64Url(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function fromBase64Url(b64) {
+  const bin = atob(b64.replace(/-/g, '+').replace(/_/g, '/'));
+  return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
+}
+
+/**
+ * Link mở công cụ kèm toàn bộ cài đặt (SĐT sếp, xưng hô, template…).
+ * Cài đặt nằm sau dấu #, nên trình duyệt không gửi nó lên máy chủ.
+ */
+export function settingsLink(settings, baseHref) {
+  const picked = {};
+  for (const k of SHARE_FIELDS) picked[k] = settings[k];
+  const url = new URL(baseHref);
+  url.hash = 'cfg=' + toBase64Url(JSON.stringify(picked));
+  return url.href;
+}
+
+/** Đọc cài đặt từ "#cfg=…" nếu có. */
+export function settingsFromHash(hash) {
+  const m = /(?:^#|&)cfg=([A-Za-z0-9_-]+)/.exec(hash || '');
+  if (!m) return null;
+  try {
+    const data = JSON.parse(fromBase64Url(m[1]));
+    const out = {};
+    for (const k of SHARE_FIELDS) if (k in data) out[k] = data[k];
+    return out;
+  } catch {
+    return null;
+  }
 }
