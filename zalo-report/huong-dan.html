@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hướng dẫn báo cáo</title>
+  <meta name="description" content="Cách đọc báo cáo tài chính tháng và cách lập, gửi báo cáo qua Zalo.">
+  <link rel="stylesheet" href="css/report.css">
+  <style>
+    .doc { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+    .doc h1 { font-size: 1.5rem; margin-bottom: 6px; }
+    .doc h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+    .doc p, .doc li { color: var(--text); }
+    .doc .lead { color: var(--muted); }
+    .doc dl { display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: 8px 16px; margin: 0; }
+    .doc dt { font-weight: 600; }
+    .doc dd { margin: 0; color: var(--muted); }
+    .doc nav { display: flex; gap: 14px; flex-wrap: wrap; font-size: .9rem; margin-top: 8px; }
+    .doc nav a { color: var(--accent); }
+    .doc .box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; }
+    @media (max-width: 560px) { .doc dl { grid-template-columns: 1fr; } .doc dd { margin-bottom: 6px; } }
+  </style>
+</head>
+<body>
+  <main class="doc">
+    <h1>Hướng dẫn đọc báo cáo tài chính tháng</h1>
+    <p class="lead">Trang này đi kèm tin nhắn báo cáo gửi qua Zalo. Mọi số liệu tính bằng <b>triệu đồng</b>;
+      số trong ngoặc, ví dụ <b>(28.311)</b>, là số âm.</p>
+    <nav><a href="#doc-bao-cao">Đọc báo cáo</a><a href="#canh-bao">Các cảnh báo</a><a href="#lap-bao-cao">Lập &amp; gửi báo cáo</a></nav>
+
+    <h2 id="doc-bao-cao">1. Các mục trong báo cáo</h2>
+    <div class="box">
+      <dl>
+        <dt>Tổng tiền</dt><dd>Tiền mặt + tiền gửi ngân hàng tại thời điểm lập báo cáo. Âm nghĩa là đang thấu chi hoặc dùng vốn vay ngắn hạn.</dd>
+        <dt>Phải thu / Phải trả</dt><dd>Số dư công nợ với khách hàng và nhà cung cấp.</dd>
+        <dt>Doanh thu, Chi phí, Lợi nhuận tháng</dt><dd>Kết quả kinh doanh của riêng tháng báo cáo. Lợi nhuận = Doanh thu − Chi phí.</dd>
+        <dt>Biên lợi nhuận</dt><dd>Lợi nhuận ÷ Doanh thu. Cho biết mỗi 100 đồng doanh thu giữ lại được bao nhiêu đồng lãi.</dd>
+        <dt>Luỹ kế năm</dt><dd>Cộng dồn từ tháng 1 đến hết kỳ báo cáo. Biểu đồ cột thể hiện doanh thu (xanh) và chi phí (hồng) từng tháng, đường cam là lợi nhuận.</dd>
+        <dt>Nợ phải thu theo hạn nợ</dt><dd>Tiền khách đang nợ, tách ra phần đã <b>quá hạn</b> thanh toán và phần còn <b>trong hạn</b>. Thanh màu cam là tỷ lệ quá hạn.</dd>
+        <dt>Nợ phải trả theo hạn nợ</dt><dd>Tiền công ty đang nợ nhà cung cấp, cũng tách quá hạn / trong hạn.</dd>
+        <dt>Hàng tồn kho</dt><dd>Tổng giá trị hàng trong kho và 5 mặt hàng có giá trị tồn lớn nhất.</dd>
+      </dl>
+    </div>
+
+    <h2 id="canh-bao">2. Các cảnh báo tự động</h2>
+    <ul>
+      <li>⚠️ <b>Tổng tiền âm</b> — cần cân đối dòng tiền, xem lại kế hoạch thu chi.</li>
+      <li>⚠️ <b>Nợ phải thu quá hạn trên 20%</b> tổng nợ phải thu — cần đôn đốc thu hồi.</li>
+      <li>⚠️ <b>Có nợ phải trả quá hạn</b> — có thể ảnh hưởng uy tín với nhà cung cấp.</li>
+      <li>⚠️ <b>Tháng lỗ</b> — chi phí vượt doanh thu.</li>
+      <li>📈/📉 So sánh lợi nhuận với tháng trước (khi có số liệu theo tháng).</li>
+    </ul>
+
+    <h2 id="lap-bao-cao">3. Lập và gửi báo cáo (dành cho người lập)</h2>
+    <ol>
+      <li>Trong phần mềm kế toán, xuất báo cáo tổng quan ra Excel.</li>
+      <li>Mở <a href="./">công cụ Gửi báo cáo Zalo</a>, kéo file Excel vào. Công cụ tự nhận diện các chỉ số theo nhãn
+        (Tổng tiền, Tiền mặt, Doanh thu…). Ô nào trống thì điền tay, hoặc khai báo tên nhãn trong mục “Ánh xạ nhãn”.
+        Chưa có file? Bấm “Tải file Excel mẫu” để xem bố cục gợi ý.</li>
+      <li>Điền SĐT Zalo của sếp, cách xưng hô, và chỉnh template tin nhắn nếu cần.</li>
+      <li>Bấm <b>Gửi qua Zalo</b>:
+        <ul>
+          <li><b>Trên máy tính:</b> tin nhắn được chép sẵn, file PDF tự tải về, Zalo mở đúng khung chat của sếp → nhấn Ctrl+V, kéo file PDF vào, bấm Gửi.</li>
+          <li><b>Trên điện thoại:</b> chọn Zalo trong bảng chia sẻ → chọn sếp → Gửi.</li>
+        </ul>
+      </li>
+    </ol>
+    <p class="lead">Vì sao không tự gửi hoàn toàn? Zalo cá nhân không có API gửi tin chính thức; các công cụ tự đăng nhập
+      tài khoản cá nhân vi phạm điều khoản của Zalo và có thể khiến tài khoản bị khoá. Bạn luôn là người bấm Gửi cuối cùng.</p>
+  </main>
+</body>
+</html>

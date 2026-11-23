@@ -350,6 +350,72 @@ ok(ps.includes("'.js'") && /\.js'\s*=\s*'text\/javascript/.test(ps),
 ok(/\.webmanifest'\s*=\s*'application\/manifest\+json/.test(ps),
   '.webmanifest được trả đúng MIME');
 
+/* ---------- 8. Công cụ gửi báo cáo Zalo ---------- */
+
+section('8. zalo-report — đọc số, nhận diện Excel, template tin nhắn');
+{
+  const { parseVN, formatVN, fillDerived, emptyReport, templateVars } = await import('../zalo-report/js/metrics.js');
+  const { extractReport, parsePeriod, parseMonthCell } = await import('../zalo-report/js/excel-import.js');
+  const { renderTemplate, DEFAULT_TEMPLATE, VARIABLE_HELP } = await import('../zalo-report/js/template.js');
+  const { normalizePhone } = await import('../zalo-report/js/settings.js');
+  const { SAMPLE_SHEETS } = await import('../zalo-report/js/sample-data.js');
+
+  const cases = [
+    ['1.603', 1603], ['(28.311)', -28311], ['-29.914', -29914], ['1.659.498.280,000', 1659498280],
+    ['217,34', 217.34], ['12.5', 12.5], ['1,234,567', 1234567], [131581, 131581], ['abc', null], ['', null],
+  ];
+  const badParse = cases.filter(([s, want]) => parseVN(s) !== want);
+  ok(badParse.length === 0, 'parseVN đọc đúng số kiểu VN', badParse.map(([s]) => `${s} → ${parseVN(s)}`).join(', '));
+
+  ok(formatVN(-28311) === '(28.311)' && formatVN(1603) === '1.603' && formatVN(217.34, 2) === '217,34' && formatVN(null) === '—',
+    'formatVN định dạng như dashboard');
+
+  ok(parsePeriod('Tháng 11/2026')?.month === 11 && parsePeriod('11-2026')?.year === 2026 && parsePeriod('xyz') === null,
+    'đọc kỳ báo cáo "Tháng 11/2026"');
+  ok(parseMonthCell('Th 10') === 10 && parseMonthCell('Tháng 01') === 1 && parseMonthCell(12) === 12 && parseMonthCell('Tổng') === null,
+    'đọc ô tháng "Th 10" / "Tháng 01" / 12');
+
+  const { report, found } = extractReport(SAMPLE_SHEETS);
+  const v = report.values;
+  ok(found.length === 18, `nhận diện đủ 18 chỉ số từ file mẫu (được ${found.length})`);
+  ok(v.tong_tien === -28311 && v.doanh_thu === 14814 && v.loi_nhuan === 8544 && v.ton_kho === 131581,
+    'số trên file mẫu khớp dashboard');
+  ok(v.npt_qua_han === 2875 && v.nptr_trong_han === 542, '"Quá hạn"/"Trong hạn" hiểu theo mục công nợ phía trên');
+  ok(report.monthly.length === 12 && report.inventory.length === 5, 'đọc được bảng 12 tháng và 5 mặt hàng tồn kho');
+  ok(report.company.includes('Vật liệu') && report.period?.month === 11, 'đọc được tên công ty và kỳ báo cáo');
+
+  const inDong = extractReport([{ name: 'x', rows: [['Tiền mặt', 1603000000], ['Tiền gửi', 500000000]] }], { unit: 'dong' });
+  ok(inDong.report.values.tien_mat === 1603 && inDong.report.values.tong_tien === 2103 && inDong.derived.includes('tong_tien'),
+    'đổi đơn vị đồng → triệu và tự tính tổng tiền');
+
+  const custom = extractReport([{ name: 'x', rows: [['Tiền và tương đương tiền', 999]] }],
+    { customAliases: { tong_tien: ['Tiền và tương đương tiền'] } });
+  ok(custom.report.values.tong_tien === 999, 'nhãn tự khai báo (ánh xạ nhãn) được dùng');
+
+  const r2 = emptyReport();
+  r2.monthly = [{ month: 1, dt: 10, cp: 4, ln: 6 }, { month: 2, dt: 20, cp: 5, ln: 15 }];
+  r2.period = { month: 2, year: 2026 };
+  fillDerived(r2);
+  ok(r2.values.dt_nam === 30 && r2.values.doanh_thu === 20, 'luỹ kế năm và số tháng lấy từ bảng theo tháng');
+
+  const vars = templateVars(report, { guideUrl: 'https://example.com/hd', bossTitle: 'anh Hùng' });
+  const known = new Set(Object.keys(vars));
+  const missingHelp = VARIABLE_HELP.filter(([k]) => !known.has(k)).map(([k]) => k);
+  ok(missingHelp.length === 0, 'mọi biến trong danh sách gợi ý đều có giá trị', missingHelp.join(', '));
+
+  const msg = renderTemplate(DEFAULT_TEMPLATE, vars);
+  ok(msg.unknown.length === 0 && msg.empty.length === 0 && !msg.text.includes('{{'), 'template mặc định điền hết biến');
+  ok(msg.text.includes('anh Hùng') && msg.text.includes('14.814') && msg.text.includes('https://example.com/hd'),
+    'tin nhắn có xưng hô, số liệu và link hướng dẫn');
+  ok(msg.text.includes('27,6%'), 'nhận xét tự động cảnh báo nợ quá hạn 27,6%');
+  ok(renderTemplate('{{khong_co}}', vars).unknown[0] === 'khong_co', 'báo biến không tồn tại');
+
+  ok(normalizePhone('+84 912 345 678') === '0912345678' && normalizePhone('0912.345.678') === '0912345678' && normalizePhone('123') === '',
+    'chuẩn hoá SĐT cho link zalo.me');
+
+  ok(sw.includes('/zalo-report/'), 'service worker của app tiếng Anh bỏ qua /zalo-report/');
+}
+
 /* ---------- Tổng kết ---------- */
 
 console.log(`\n${'─'.repeat(52)}`);

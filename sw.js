@@ -5,7 +5,7 @@
  * toàn bộ và xoá cache cũ. Trang sẽ hiện thông báo "có bản mới" để bạn tải lại.
  */
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE = `dela-${CACHE_VERSION}`;
 
 /** Toàn bộ app shell + dữ liệu bài học — sau khi cache là chạy offline được. */
@@ -78,6 +78,10 @@ self.addEventListener('fetch', (event) => {
   // Tuyệt đối không đụng vào request tới api.anthropic.com (hoặc bất kỳ host nào
   // khác): cache lại phản hồi API là vô nghĩa và có thể lộ dữ liệu.
   if (url.origin !== self.location.origin) return;
+
+  // Công cụ gửi báo cáo Zalo là trang riêng, không thuộc app học tiếng Anh:
+  // để trình duyệt tải thẳng, không cache và không rơi về index.html khi mất mạng.
+  if (url.pathname.includes('/zalo-report/')) return;
 
   // Điều hướng: ưu tiên mạng để nhận bản mới, mất mạng thì trả trang đã cache.
   if (request.mode === 'navigate') {

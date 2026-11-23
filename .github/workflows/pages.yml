@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - claude/daily-english-learning-app-1ybeib
+      - claude/busy-hypatia-cmcivh
   workflow_dispatch:
 
 permissions:

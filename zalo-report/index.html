@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gửi báo cáo Zalo</title>
+  <meta name="description" content="Tạo báo cáo tài chính PDF từ file Excel kế toán và gửi cho sếp qua Zalo cá nhân.">
+  <link rel="stylesheet" href="css/report.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js" defer></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Gửi báo cáo tài chính qua Zalo</h1>
+      <p>Excel từ phần mềm kế toán → PDF + tin nhắn tổng hợp → khung chat Zalo của sếp.
+        Mọi xử lý diễn ra trong trình duyệt, số liệu không gửi lên máy chủ nào.</p>
+    </div>
+    <a class="link" href="huong-dan.html" target="_blank">Hướng dẫn</a>
+  </header>
+
+  <main class="layout">
+    <div class="steps">
+
+      <section class="step" id="step-1">
+        <h2><span class="n">1</span> Nhập dữ liệu</h2>
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept=".xlsx,.xls,.csv">
+          <strong>Kéo file Excel vào đây</strong>
+          <span>hoặc bấm để chọn file (.xlsx, .xls, .csv) xuất từ phần mềm kế toán</span>
+        </label>
+        <div class="row">
+          <label class="inline">Đơn vị số trong file
+            <select id="unit"></select>
+          </label>
+          <button type="button" class="btn ghost" id="use-sample">Dùng dữ liệu mẫu</button>
+          <button type="button" class="btn ghost" id="download-sample">Tải file Excel mẫu</button>
+        </div>
+        <p class="status" id="import-status" hidden></p>
+      </section>
+
+      <section class="step" id="step-2">
+        <h2><span class="n">2</span> Kiểm tra số liệu <small>(triệu đồng)</small></h2>
+        <div class="grid2">
+          <label class="field"><span>Tên công ty</span><input id="company" placeholder="Công ty TNHH …"></label>
+          <label class="field"><span>Kỳ báo cáo (tháng/năm)</span><input id="period" placeholder="11/2026"></label>
+        </div>
+        <div id="fields" class="fields"></div>
+        <div class="row">
+          <button type="button" class="btn ghost" id="recalc">Tự tính ô còn trống</button>
+          <span class="hint">Ô viền cam là ô chưa có số. Gõ số kiểu VN: 1.603 hoặc (28.311) cho số âm.</span>
+        </div>
+        <details>
+          <summary>Ánh xạ nhãn — khi file của bạn dùng tên khác</summary>
+          <p class="hint">Gõ đúng nhãn trong file Excel (cách nhau bằng dấu ;). Công cụ ghi nhớ cho các lần sau.</p>
+          <div id="aliases" class="fields"></div>
+        </details>
+      </section>
+
+      <section class="step" id="step-3">
+        <h2><span class="n">3</span> Tin nhắn</h2>
+        <div class="grid3">
+          <label class="field"><span>Gọi sếp là</span><input id="boss-title" placeholder="anh Hùng"></label>
+          <label class="field"><span>SĐT Zalo của sếp</span><input id="boss-phone" inputmode="tel" placeholder="0912 345 678"></label>
+          <label class="field"><span>Link hướng dẫn</span><input id="guide-url" inputmode="url"></label>
+        </div>
+        <details>
+          <summary>Sửa template tin nhắn</summary>
+          <textarea id="template" rows="14" spellcheck="false"></textarea>
+          <p class="hint">Bấm vào biến để chèn:</p>
+          <div id="vars" class="chips"></div>
+          <button type="button" class="btn ghost" id="reset-template">Khôi phục template mặc định</button>
+        </details>
+        <label class="field"><span>Nội dung sẽ gửi (sửa trực tiếp được)</span>
+          <textarea id="message" rows="16"></textarea>
+        </label>
+        <p class="warn" id="message-warn" hidden></p>
+      </section>
+
+      <section class="step" id="step-4">
+        <h2><span class="n">4</span> Gửi cho sếp</h2>
+        <p class="hint" id="send-target"></p>
+        <div class="row">
+          <button type="button" class="btn primary" id="send" disabled>Gửi qua Zalo</button>
+          <button type="button" class="btn ghost" id="only-copy">Chỉ chép tin nhắn</button>
+          <button type="button" class="btn ghost" id="only-pdf" disabled>Chỉ tải PDF</button>
+        </div>
+        <ol class="desktop-steps" id="desktop-steps" hidden>
+          <li>Tin nhắn đã được chép và file <b id="pdf-name"></b> đã tải về máy.</li>
+          <li>Trong khung chat Zalo vừa mở: bấm vào ô soạn tin, nhấn <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
+          <li>Kéo file PDF từ thanh tải xuống vào khung chat, rồi bấm <b>Gửi</b>.
+            <button type="button" class="link" id="open-zalo">Mở lại Zalo</button></li>
+        </ol>
+        <p class="hint">Trên điện thoại: bấm Gửi → chọn Zalo → chọn sếp → Gửi. Nếu tin nhắn không tự hiện,
+          giữ ô soạn tin và chọn Dán (nội dung đã được chép sẵn).</p>
+      </section>
+    </div>
+
+    <aside class="preview">
+      <h2>Xem trước báo cáo PDF</h2>
+      <p class="empty" id="preview-empty">Nhập file Excel hoặc bấm "Dùng dữ liệu mẫu" để xem báo cáo.</p>
+      <div class="paper-wrap" id="paper-wrap" hidden>
+        <div class="paper-scale" id="paper-scale"><article class="paper" id="paper"></article></div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

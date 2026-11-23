@@ -188,6 +188,27 @@ Lưu trong `localStorage` của trình duyệt: từ đã nhớ, điểm từng 
 
 ---
 
+## Công cụ gửi báo cáo tài chính qua Zalo (`zalo-report/`)
+
+Trang riêng, không liên quan tới app học tiếng Anh. Công cụ biến file Excel xuất từ phần
+mềm kế toán thành **báo cáo PDF** và **tin nhắn tổng hợp theo template**, có kèm link
+hướng dẫn, rồi mở khung chat Zalo của sếp.
+
+- Mở: `…/zalo-report/` trên GitHub Pages, hoặc chạy `run-windows.bat` rồi vào
+  `http://localhost:8765/zalo-report/`.
+- Các bước: kéo file Excel vào → kiểm tra hoặc sửa số → điền SĐT Zalo của sếp → bấm **Gửi qua Zalo**.
+  - **Máy tính:** công cụ chép sẵn tin nhắn và tải PDF về, rồi mở `zalo.me/<SĐT>`. Bạn nhấn Ctrl+V, kéo file PDF vào và bấm Gửi.
+  - **Điện thoại:** bảng chia sẻ hiện ra → chọn Zalo → chọn sếp → Gửi.
+- Zalo cá nhân không có API gửi tin chính thức, nên người dùng luôn tự bấm Gửi. Cách này
+  không vi phạm điều khoản Zalo và không có rủi ro bị khoá tài khoản.
+- Tự nhận diện nhãn giống dashboard (Tổng tiền, Tiền mặt, Doanh thu, Nợ phải thu – Quá hạn…),
+  bảng theo tháng và bảng tồn kho. Nếu file dùng tên nhãn khác, khai báo ở mục *Ánh xạ nhãn*.
+  Bấm *Tải file Excel mẫu* để xem bố cục gợi ý.
+- Mọi xử lý chạy trong trình duyệt. Số liệu không gửi lên máy chủ nào, chỉ cài đặt
+  (SĐT, template, nhãn) được lưu trong trình duyệt.
+- Trang hướng dẫn gắn trong tin nhắn: `zalo-report/huong-dan.html`. Có thể đổi sang link khác trong ô *Link hướng dẫn*.
+- Thư viện tải từ CDN jsDelivr (SheetJS, Chart.js, html2pdf.js), nên lần đầu mở cần có mạng.
+
 ## Kiểm tra
 
 ```bash
