@@ -15,7 +15,8 @@ Nhận xét nhanh:
 {{nhan_xet}}
 
 Chi tiết trong file PDF đính kèm.
-Hướng dẫn đọc báo cáo: {{link_huong_dan}}`;
+Hướng dẫn đọc báo cáo: {{link_huong_dan}}
+📱 Xem số liệu trực tiếp trên điện thoại (AMIS): {{link_xem_mobile}}`;
 
 /** Danh sách biến có thể dùng, để hiện gợi ý trên giao diện. */
 export const VARIABLE_HELP = [
@@ -45,6 +46,7 @@ export const VARIABLE_HELP = [
   ['ton_kho', 'Hàng tồn kho'],
   ['nhan_xet', 'Nhận xét tự động (nhiều dòng)'],
   ['link_huong_dan', 'Link hướng dẫn'],
+  ['link_xem_mobile', 'Link hướng dẫn xem số liệu trên điện thoại (AMIS)'],
 ];
 
 /**

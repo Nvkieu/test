@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hướng dẫn báo cáo</title>
-  <meta name="description" content="Cách đọc báo cáo tài chính tháng và cách lập, gửi báo cáo qua Zalo.">
+  <meta name="description" content="Cách đọc báo cáo tài chính tháng, cách lập và gửi báo cáo qua Zalo, và cách xem số liệu trực tiếp trên điện thoại.">
   <link rel="stylesheet" href="css/report.css">
   <style>
     .doc { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
     .doc h1 { font-size: 1.5rem; margin-bottom: 6px; }
     .doc h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+    .doc h3.sub { font-size: 1rem; margin: 18px 0 4px; }
+    .doc a { color: var(--accent); }
     .doc p, .doc li { color: var(--text); }
     .doc .lead { color: var(--muted); }
     .doc dl { display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: 8px 16px; margin: 0; }
@@ -25,8 +27,9 @@
   <main class="doc">
     <h1>Hướng dẫn đọc báo cáo tài chính tháng</h1>
     <p class="lead">Trang này đi kèm tin nhắn báo cáo gửi qua Zalo. Mọi số liệu tính bằng <b>triệu đồng</b>;
-      số trong ngoặc, ví dụ <b>(28.311)</b>, là số âm.</p>
-    <nav><a href="#doc-bao-cao">Đọc báo cáo</a><a href="#canh-bao">Các cảnh báo</a><a href="#lap-bao-cao">Lập &amp; gửi báo cáo</a></nav>
+      số trong ngoặc, ví dụ <b>(28.311)</b>, là số âm.
+      Cuối trang có hướng dẫn <a href="#amis-mobile">xem số liệu trực tiếp trên điện thoại</a>.</p>
+    <nav><a href="#doc-bao-cao">Đọc báo cáo</a><a href="#canh-bao">Các cảnh báo</a><a href="#lap-bao-cao">Lập &amp; gửi báo cáo</a><a href="#amis-mobile">Xem trên điện thoại (AMIS)</a></nav>
 
     <h2 id="doc-bao-cao">1. Các mục trong báo cáo</h2>
     <div class="box">
@@ -67,6 +70,42 @@
     </ol>
     <p class="lead">Vì sao không tự gửi hoàn toàn? Zalo cá nhân không có API gửi tin chính thức; các công cụ tự đăng nhập
       tài khoản cá nhân vi phạm điều khoản của Zalo và có thể khiến tài khoản bị khoá. Bạn luôn là người bấm Gửi cuối cùng.</p>
+
+    <h2 id="amis-mobile">4. Xem số liệu trực tiếp trên điện thoại (AMIS Kế toán)</h2>
+    <p>Ngoài báo cáo PDF hằng tháng, anh/chị có thể tự xem số liệu mới nhất bất cứ lúc nào bằng ứng dụng
+      <b>MISA AMIS Kế toán</b> trên điện thoại — cùng nguồn số liệu với báo cáo này.</p>
+
+    <h3 class="sub">4.1. Kế toán tạo tài khoản cho sếp</h3>
+    <p class="lead">Người làm: kế toán có quyền quản trị AMIS. Làm một lần.</p>
+    <ol>
+      <li>Đăng nhập AMIS trên máy tính → vào <b>AMIS Hệ thống</b> → <b>Người dùng</b> → <b>Thêm</b>.
+        Nhập họ tên và email (hoặc số điện thoại) của sếp.</li>
+      <li>Ở phần phân quyền ứng dụng <b>AMIS Kế toán</b>, chọn vai trò <b>chỉ xem</b> — sếp xem được
+        báo cáo nhưng không thêm, sửa, xoá chứng từ.</li>
+      <li>Lưu lại. Sếp nhận email/tin nhắn kích hoạt → bấm kích hoạt và đặt mật khẩu cho tài khoản MISA ID.</li>
+    </ol>
+
+    <h3 class="sub">4.2. Sếp xem số liệu trên điện thoại</h3>
+    <ol>
+      <li>Tải ứng dụng <b>MISA AMIS Kế toán</b> trên App Store (iPhone) hoặc CH Play (Android),
+        đăng nhập bằng tài khoản vừa được tạo.</li>
+      <li>Chọn đúng <b>dữ liệu kế toán</b> của công ty (nếu có nhiều công ty/chi nhánh).</li>
+      <li>Vào <b>Tổng quan</b> → chọn kỳ xem (tháng, quý, năm) → xem Doanh thu, Chi phí, Lợi nhuận,
+        tình hình tiền, công nợ và tồn kho — chính là các con số trong báo cáo PDF.</li>
+      <li>Muốn xem chi tiết từng khách hàng / nhà cung cấp: vào <b>Báo cáo</b> → <b>Công nợ</b>.</li>
+    </ol>
+
+    <div class="box">
+      <p><b>Lưu ý:</b> tên menu có thể khác đôi chút tuỳ phiên bản AMIS. Hướng dẫn chính thức của MISA:</p>
+      <ul>
+        <li><a href="https://helpact.misa.vn/?p=9430" target="_blank" rel="noopener">Thêm người dùng</a> ·
+          <a href="https://helpact.misa.vn/?p=73499" target="_blank" rel="noopener">Phân quyền &amp; vai trò</a> ·
+          <a href="https://helpact.misa.vn/?p=30003" target="_blank" rel="noopener">Quyền chỉ xem, không sửa</a></li>
+        <li><a href="https://helpact.misa.vn/?p=16629" target="_blank" rel="noopener">Bắt đầu với AMIS Kế toán mobile</a> ·
+          <a href="https://helpact.misa.vn/?p=16593" target="_blank" rel="noopener">Xem báo cáo trên mobile</a> ·
+          <a href="https://helpact.misa.vn/?p=16619" target="_blank" rel="noopener">Tra cứu công nợ trên mobile</a></li>
+      </ul>
+    </div>
   </main>
 </body>
 </html>

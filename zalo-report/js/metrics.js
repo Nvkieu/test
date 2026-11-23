@@ -224,6 +224,7 @@ export function templateVars(report, extra = {}) {
   vars.ten_cong_ty = extra.company || report.company || '';
   vars.xung_ho = extra.bossTitle || 'anh/chị';
   vars.link_huong_dan = extra.guideUrl || '';
+  vars.link_xem_mobile = extra.guideUrl ? `${extra.guideUrl.split('#')[0]}#amis-mobile` : '';
   vars.ngay_gui = extra.today || '';
   vars.nhan_xet = buildInsights(report).join('\n');
   return vars;

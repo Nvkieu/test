@@ -407,6 +407,8 @@ section('8. zalo-report — đọc số, nhận diện Excel, template tin nhắ
   ok(msg.unknown.length === 0 && msg.empty.length === 0 && !msg.text.includes('{{'), 'template mặc định điền hết biến');
   ok(msg.text.includes('anh Hùng') && msg.text.includes('14.814') && msg.text.includes('https://example.com/hd'),
     'tin nhắn có xưng hô, số liệu và link hướng dẫn');
+  ok(vars.link_xem_mobile === 'https://example.com/hd#amis-mobile' && msg.text.includes('#amis-mobile'),
+    'tin nhắn có link hướng dẫn xem số liệu trên điện thoại');
   ok(msg.text.includes('27,6%'), 'nhận xét tự động cảnh báo nợ quá hạn 27,6%');
   ok(renderTemplate('{{khong_co}}', vars).unknown[0] === 'khong_co', 'báo biến không tồn tại');
 
